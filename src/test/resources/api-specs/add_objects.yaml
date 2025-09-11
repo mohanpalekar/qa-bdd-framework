@@ -1,0 +1,7 @@
+name: addObjects
+method: POST
+uri: "/objects"
+headers:
+  Content-Type: application/json
+  Accept: application/json
+payload: "add_objects.json"

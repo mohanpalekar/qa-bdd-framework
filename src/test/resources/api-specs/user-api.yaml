@@ -1,0 +1,11 @@
+name: createUser
+method: POST
+uri: "/v1/users/{tenantId}"
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathParams:
+  tenantId: "~"
+query:
+  verbose: "true"
+payload: "create_user.json"

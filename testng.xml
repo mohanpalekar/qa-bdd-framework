@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Cucumber TestNG Suite" parallel="${parallel.level}" thread-count="${thread.count}">
+    <listeners>
+        <listener class-name="utils.RetryListener"/>
+    </listeners>
+    <test name="BDD Tests">
+        <classes>
+            <class name="runners.TestNGCucumberRunner"/>
+            <class name="runners.FailedScenariosRunner"/>
+        </classes>
+    </test>
+</suite>

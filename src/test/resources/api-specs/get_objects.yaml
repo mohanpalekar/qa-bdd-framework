@@ -1,0 +1,6 @@
+name: getObjects
+method: GET
+uri: "/objects"
+headers:
+  Accept: application/json
+# No payload needed for GET

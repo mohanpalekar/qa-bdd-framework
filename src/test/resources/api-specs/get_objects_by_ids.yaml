@@ -1,0 +1,5 @@
+method: GET
+uri: /objects
+headers:
+  Accept: application/json
+# No need to define query keys here; they will be passed from the feature file

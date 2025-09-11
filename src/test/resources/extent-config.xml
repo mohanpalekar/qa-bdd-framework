@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- Report Title & Name -->
+        <reportName>My Automation Suite</reportName>
+        <documentTitle>Automation Execution Report</documentTitle>
+
+        <!-- UI Theme: standard or dark -->
+        <theme>standard</theme>
+
+        <!-- Encoding -->
+        <encoding>UTF-8</encoding>
+
+        <!-- Protocol for links -->
+        <protocol>https</protocol>
+
+        <!-- Show author & device in dashboard -->
+        <enableAuthor>true</enableAuthor>
+        <enableDevice>true</enableDevice>
+        <enableCategory>true</enableCategory>
+
+        <!-- Timeline view at top -->
+        <timelineEnabled>true</timelineEnabled>
+
+        <!-- Charts -->
+        <chartVisibilityOnOpen>true</chartVisibilityOnOpen>
+        <chartLocation>top</chartLocation>
+
+        <!-- Custom CSS -->
+        <css>
+            <![CDATA[
+        .test-name {
+          font-size: 15px !important;
+          color: #00bcd4 !important;
+        }
+      ]]>
+        </css>
+
+        <!-- Custom JS -->
+        <js>
+            <![CDATA[
+        console.log("Extent Report Loaded");
+      ]]>
+        </js>
+
+        <!-- Add system/environment info -->
+        <systemInfo>
+            <param name="Browser" value="Chrome"/>
+            <param name="Environment" value="QA"/>
+            <param name="OS" value="${os.name}"/>
+        </systemInfo>
+    </configuration>
+</extentreports>
