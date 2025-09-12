@@ -1,4 +1,4 @@
-package steps;
+package com.qa.bdd.steps;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.datatable.DataTable;
@@ -18,17 +18,19 @@ public class UiSteps {
 
     private static final Logger logger = Hooks.getLogger();
 
+    @SuppressWarnings("unused")
     @Given("I launch browser {string}")
     public void launchBrowser(String browserKey) {
         String browser = Config.get(browserKey);
-        logger.info("Launching browser: " + browser);
+        logger.info(() -> "Launching browser: " + browser);
         DriverFactory.initDriver(browser);
     }
 
+    @SuppressWarnings("unused")
     @Given("I navigate to URL {string}")
     public void navigateToUrl(String urlKey) {
         String url = Config.get(urlKey);
-        logger.info("Navigating to URL: " + url);
+        logger.info(() -> "Navigating to URL: " + url);
         DriverFactory.getDriver().get(url);
     }
 
@@ -39,25 +41,21 @@ public class UiSteps {
         for (Map<String, String> row : rows) {
             String operation = row.get("operation").toLowerCase();
             String locatorKey = row.get("locatorKey");
-            String rawValue = row.get("value"); // may be null
-            String value = ValueResolver.resolve(rawValue); // dynamic/faker support
+            String rawValue = row.get("value");
+            String value = ValueResolver.resolve(rawValue);
 
-            logger.info(() ->
-                    "UI Action - Operation: " + operation +
-                            (locatorKey != null && !locatorKey.isEmpty() ? ", LocatorKey: " + locatorKey : "") +
-                            (value != null && !value.isEmpty() ? ", Value: " + value : "")
-            );
+            logger.info(() -> buildLogMessage(operation, locatorKey, value));
 
             switch (operation) {
                 case "type" -> WebDriverUtils.type(locatorKey, value);
                 case "click" -> WebDriverUtils.click(locatorKey);
-                case "verifytext" -> WebDriverUtils.verifyText(locatorKey, value);
-                case "mouseover" -> WebDriverUtils.mouseOver(locatorKey);
-                case "doubleclick" -> WebDriverUtils.doubleClick(locatorKey);
+                case "verify text" -> WebDriverUtils.verifyText(locatorKey, value);
+                case "mouse over" -> WebDriverUtils.mouseOver(locatorKey);
+                case "double click" -> WebDriverUtils.doubleClick(locatorKey);
                 case "wait" -> waitForSeconds(value);
                 case "keyboard" -> sendKeyboardAction(value);
-                case "jsclick" -> WebDriverUtils.jsClick(locatorKey);
-                case "jssendkeys" -> WebDriverUtils.jsSendKeys(locatorKey, value);
+                case "js click" -> WebDriverUtils.jsClick(locatorKey);
+                case "js send keys" -> WebDriverUtils.jsSendKeys(locatorKey, value);
                 default -> {
                     String message = "Unknown UI operation: " + operation;
                     logger.severe(message);
@@ -65,20 +63,20 @@ public class UiSteps {
                 }
             }
 
-            logger.info("✅ Completed operation: " + operation +
+            logger.info(() -> "✅ Completed operation: " + operation +
                     (locatorKey != null && !locatorKey.isEmpty() ? " on " + locatorKey : ""));
         }
     }
 
     private void waitForSeconds(String value) {
         int seconds = Integer.parseInt(value);
-        logger.info("⏳ Waiting for " + seconds + " seconds...");
+        logger.info(() -> "⏳ Waiting for " + seconds + " seconds...");
         try {
             Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        logger.info("✅ Waited for " + seconds + " seconds");
+        logger.info(() -> "✅ Waited for " + seconds + " seconds");
     }
 
     private void sendKeyboardAction(String action) {
@@ -92,8 +90,13 @@ public class UiSteps {
         });
 
         new Actions(DriverFactory.getDriver()).sendKeys(keyToSend).perform();
-        logger.info("✅ Sent keyboard action: " + action);
+        logger.info(() -> "✅ Sent keyboard action: " + action);
     }
 
-
+    private String buildLogMessage(String operation, String locatorKey, String value) {
+        StringBuilder sb = new StringBuilder("UI Action - Operation: ").append(operation);
+        if (locatorKey != null && !locatorKey.isEmpty()) sb.append(", LocatorKey: ").append(locatorKey);
+        if (value != null && !value.isEmpty()) sb.append(", Value: ").append(value);
+        return sb.toString();
+    }
 }

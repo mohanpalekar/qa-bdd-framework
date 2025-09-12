@@ -8,15 +8,21 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.jayway.jsonpath.spi.json.JacksonJsonNodeJsonProvider;
 import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+import exceptions.PayloadBuildException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 
+/**
+ * Utility to build request payloads by loading default payload JSON from classpath
+ * and applying JSONPath overrides.
+ */
 public final class PayloadOverwriter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    // JsonPath config to work with Jackson JsonNode and create missing nodes on set()
     private static final Configuration CONF = Configuration.builder()
             .jsonProvider(new JacksonJsonNodeJsonProvider())
             .mappingProvider(new JacksonMappingProvider())
@@ -27,43 +33,52 @@ public final class PayloadOverwriter {
             .build();
 
     private PayloadOverwriter() {
+        // utility class
     }
 
     /**
      * Build request payload by loading default payload JSON from classpath and applying
-     * JSONPath overrides (only keys starting with "$.").
+     * JSONPath overrides.
      *
      * @param defaultFile classpath-relative under resources/payloads/
-     * @param overrides   map of JSONPath -> value (string; will be type-coerced)
+     * @param overrides   map of JSONPath -> value
      * @return final JSON string
+     * @throws PayloadBuildException if payload cannot be built
      */
-    public static String buildPayload(String defaultFile, Map<String, String> overrides) {
-        String path = "payloads/" + defaultFile;
+    public static String buildPayload(final String defaultFile, final Map<String, String> overrides) {
+        final String path = "payloads/" + Objects.requireNonNull(defaultFile, "defaultFile must not be null");
+
         try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path)) {
             if (is == null) {
-                throw new IllegalArgumentException("Payload file not found on classpath: " + path);
+                throw new PayloadBuildException("Payload file not found on classpath: " + path);
             }
 
             JsonNode base = MAPPER.readTree(is);
             DocumentContext ctx = JsonPath.using(CONF).parse(base);
 
-            if (overrides != null) {
-                for (Map.Entry<String, String> e : overrides.entrySet()) {
-                    String key = e.getKey();
-                    if (!key.startsWith("$.")) {
-                        // ignore non-JSONPath keys (e.g., path.xxx / query.xxx) if caller passed the full table
-                        continue;
-                    }
-                    Object value = coerceType(e.getValue());
-                    ctx.set(key, value);
-                }
-            }
+            applyOverrides(ctx, overrides);
 
             JsonNode mutated = ctx.json();
             return MAPPER.writeValueAsString(mutated);
-        } catch (Exception ex) {
-            throw new RuntimeException("Failed to overwrite payload from: " + path, ex);
+
+        } catch (IOException ex) {
+            // only rethrow; don't log here
+            throw new PayloadBuildException("Failed to overwrite payload from: " + path, ex);
         }
+    }
+
+    /**
+     * Apply overrides to the JSON document context.
+     */
+    private static void applyOverrides(DocumentContext ctx, Map<String, String> overrides) {
+        if (overrides == null || overrides.isEmpty()) {
+            return;
+        }
+        overrides.forEach((key, value) -> {
+            if (key != null && key.startsWith("$.")) {
+                ctx.set(key, coerceType(value));
+            }
+        });
     }
 
     /**
@@ -75,40 +90,36 @@ public final class PayloadOverwriter {
      * - otherwise -> String
      */
     private static Object coerceType(String raw) {
-        if (raw == null) return null;
+        if (raw == null) {
+            return null;
+        }
         String t = raw.trim();
 
-        // boolean
-        if ("true".equalsIgnoreCase(t)) return true;
-        if ("false".equalsIgnoreCase(t)) return false;
+        // booleans
+        if ("true".equalsIgnoreCase(t)) return Boolean.TRUE;
+        if ("false".equalsIgnoreCase(t)) return Boolean.FALSE;
 
-        // null
+        // null literal
         if ("null".equalsIgnoreCase(t)) return null;
 
-        // number (int/long/double)
-        try {
-            if (t.matches("[-+]?\\d+")) {
-                long l = Long.parseLong(t);
-                // fit into Integer if possible
-                return (l >= Integer.MIN_VALUE && l <= Integer.MAX_VALUE) ? (int) l : l;
-            }
-            if (t.matches("[-+]?\\d*\\.\\d+([eE][-+]?\\d+)?")) {
-                return Double.parseDouble(t);
-            }
-        } catch (NumberFormatException ignored) {
-            // fall through to JSON / String
+        // number
+        if (t.matches("[-+]?\\d+")) {
+            long l = Long.parseLong(t);
+            return (l >= Integer.MIN_VALUE && l <= Integer.MAX_VALUE) ? (int) l : l;
+        }
+        if (t.matches("[-+]?\\d*\\.\\d+([eE][-+]?\\d+)?")) {
+            return Double.parseDouble(t);
         }
 
-        // JSON object/array literal
+        // JSON literal
         if ((t.startsWith("{") && t.endsWith("}")) || (t.startsWith("[") && t.endsWith("]"))) {
             try {
                 return MAPPER.readTree(t);
-            } catch (Exception ignored) {
-                // if not valid JSON, fall back to string
+            } catch (IOException ignored) {
+                // fallback to string
             }
         }
 
-        // default: string
         return raw;
     }
 }

@@ -7,20 +7,36 @@ import utils.Config;
 
 import java.util.Map;
 
-public class RestClient {
+/**
+ * Thin RestAssured wrapper for API calls defined in ApiYamlSpec.
+ */
+@SuppressWarnings("unused")
+public final class RestClient {
 
-    public RestClient() {
-        RestAssured.baseURI = Config.get("baseURI");
+    private RestClient() {
+        // utility class, no instances
     }
 
-    public Response call(ApiYamlSpec spec, Map<String, String> pathParams, Map<String, String> queryParams, Map<String, String> payloadOverrides) {
+    public static Response call(ApiYamlSpec spec,
+                                Map<String, String> pathParams,
+                                Map<String, String> queryParams,
+                                Map<String, String> payloadOverrides) {
+
+        RestAssured.baseURI = Config.get("baseURI");
+
         RequestSpecification req = RestAssured.given();
-        if (spec.getHeaders() != null) req.headers(spec.getHeaders());
-        if (queryParams != null) req.queryParams(queryParams);
+
+        if (spec.getHeaders() != null) {
+            req.headers(spec.getHeaders());
+        }
+        if (queryParams != null) {
+            req.queryParams(queryParams);
+        }
         if (spec.getPayload() != null) {
             String body = PayloadOverwriter.buildPayload(spec.getPayload(), payloadOverrides);
             req.body(body);
         }
+
         String resolvedUri = resolveUri(spec.getUri(), pathParams);
 
         return switch (spec.getMethod().toUpperCase()) {
@@ -33,10 +49,13 @@ public class RestClient {
         };
     }
 
-    private String resolveUri(String uri, Map<String, String> pathParams) {
+    private static String resolveUri(String uri, Map<String, String> pathParams) {
+        if (pathParams == null || pathParams.isEmpty()) {
+            return uri;
+        }
         String out = uri;
-        if (pathParams != null) {
-            for (var e : pathParams.entrySet()) out = out.replace("{" + e.getKey() + "}", e.getValue());
+        for (var e : pathParams.entrySet()) {
+            out = out.replace("{" + e.getKey() + "}", e.getValue());
         }
         return out;
     }

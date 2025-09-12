@@ -1,4 +1,4 @@
-package steps;
+package com.qa.bdd.steps;
 
 import context.ScenarioContext;
 import io.cucumber.java.After;
@@ -33,13 +33,13 @@ public class Hooks {
                 TakesScreenshot ts = (TakesScreenshot) DriverFactory.getDriver();
                 File src = ts.getScreenshotAs(OutputType.FILE);
                 String safeName = scenario.getName().replaceAll("[^a-zA-Z0-9-_]", "_");
-                File dest = new File("target/screenshots/" + safeName + ".png");
+                File destination = new File("target/screenshots/" + safeName + ".png");
 
-                Files.createDirectories(dest.getParentFile().toPath());
-                Files.copy(src.toPath(), dest.toPath());
+                Files.createDirectories(destination.getParentFile().toPath());
+                Files.copy(src.toPath(), destination.toPath());
 
-                logger.severe("❌ Scenario failed! Screenshot saved at: " + dest.getAbsolutePath());
-                scenario.attach(Files.readAllBytes(dest.toPath()), "image/png", safeName);
+                logger.severe("❌ Scenario failed! Screenshot saved at: " + destination.getAbsolutePath());
+                scenario.attach(Files.readAllBytes(destination.toPath()), "image/png", safeName);
             }
         } catch (IOException e) {
             logger.severe("Failed to capture screenshot: " + e.getMessage());
