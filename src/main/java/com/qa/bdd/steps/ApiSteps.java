@@ -1,4 +1,4 @@
-package steps;
+package com.qa.bdd.steps;
 
 import api.ApiYamlSpec;
 import api.ApiSpecLoader;
@@ -21,6 +21,7 @@ public class ApiSteps {
 
     private final Logger logger = Hooks.getLogger();
 
+    @SuppressWarnings("unused")
     @When("I call api spec {string} without overrides")
     public void iCallApiWithoutOverrides(String yamlFile) {
         iCallApiWithOverrides(yamlFile, null);
@@ -41,10 +42,9 @@ public class ApiSteps {
                 String rawValue = map.get("value");
                 String value = ValueResolver.resolve(rawValue);
 
-                // Support "wait" operation via special key
                 if ("wait".equalsIgnoreCase(key)) {
                     waitForSeconds(value);
-                    return; // skip API call modifications for this row
+                    return;
                 }
 
                 if (key.startsWith("path:")) {
@@ -59,18 +59,14 @@ public class ApiSteps {
             });
         }
 
-        // Build payload if spec has one
-        var ref = new Object() {
-            String payload = null;
-        };
-        if (spec.getPayload() != null && !spec.getPayload().isBlank()) {
-            ref.payload = PayloadOverwriter.buildPayload(spec.getPayload(), jsonOverrides);
-        }
+        String payload = (spec.getPayload() != null && !spec.getPayload().isBlank())
+                ? PayloadOverwriter.buildPayload(spec.getPayload(), jsonOverrides)
+                : null;
 
         logger.info(() -> "Calling API " + spec.getMethod() + " " + spec.getUri());
         logger.info(() -> "Path params: " + pathParams);
         logger.info(() -> "Query params: " + queryParams);
-        if (ref.payload != null) logger.info(() -> "Request body: " + ref.payload);
+        if (payload != null) logger.info(() -> "Request body: " + payload);
 
         var request = RestAssured.given()
                 .baseUri(Config.get("baseUri"))
@@ -78,26 +74,24 @@ public class ApiSteps {
                 .pathParams(pathParams);
 
         queryParams.forEach((k, v) -> request.queryParam(k, v.toArray()));
-        if (ref.payload != null) request.body(ref.payload);
+        if (payload != null) request.body(payload);
 
         Response response = request.request(spec.getMethod(), spec.getUri());
 
         logger.info(() -> "Response status: " + response.getStatusCode());
         logger.info(() -> "Response body: " + response.getBody().asPrettyString());
 
-        // Save response to static ScenarioContext
         ScenarioContext.saveResponse(response);
     }
 
     private void waitForSeconds(String value) {
-
         int seconds = Integer.parseInt(value);
-        logger.info("⏳ Waiting for " + seconds + " seconds...");
+        logger.info(() -> "⏳ Waiting for " + seconds + " seconds...");
         try {
             Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        logger.info("✅ Waited for " + seconds + " seconds");
+        logger.info(() -> "✅ Waited for " + seconds + " seconds");
     }
 }

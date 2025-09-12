@@ -6,15 +6,17 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Main TestNG–Cucumber runner.
+ * Cleans screenshots/log folders before running tests.
+ */
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = "steps",
+        glue = "com/qa/bdd/steps",
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/html",
@@ -27,46 +29,67 @@ import java.util.logging.Logger;
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
-    private static final Logger logger = Logger.getLogger(TestRunner.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TestRunner.class.getName());
     private static final String SCREENSHOT_DIR = "target/screenshots";
     private static final String LOG_DIR = "logs";
 
+    /**
+     * Override Cucumber scenarios provider to allow parallel execution.
+     * Thread count is controlled via -Ddataproviderthreadcount=… at runtime.
+     */
     @Override
-    @DataProvider(parallel = true)   // enable parallel scenario execution
+    @DataProvider(parallel = true)
     public Object[][] scenarios() {
         return super.scenarios();
     }
 
-
+    /**
+     * Clean artefact folders before any suite runs.
+     */
     @BeforeSuite(alwaysRun = true)
     public void cleanUpArtifacts() {
-        logger.info("🚀 Starting test suite cleanup...");
+        LOGGER.info(() -> "🚀 Starting test suite cleanup…");
         cleanDirectory(SCREENSHOT_DIR);
         cleanDirectory(LOG_DIR);
-        logger.info("✅ Cleanup complete. Starting tests...");
+        LOGGER.info(() -> "✅ Cleanup complete. Starting tests…");
     }
 
+    /**
+     * Deletes all regular files in a directory.
+     * Creates the directory if it does not exist.
+     */
     private void cleanDirectory(String dirPath) {
-        Path dir = Paths.get(dirPath);
+        final Path dir = Paths.get(dirPath);
+
         try {
-            if (Files.exists(dir)) {
-                Files.list(dir)
-                        .filter(Files::isRegularFile)
-                        .forEach(p -> {
-                            try {
-                                Files.deleteIfExists(p);
-                                logger.fine("🧹 Deleted: " + p);
-                            } catch (IOException ex) {
-                                logger.log(Level.WARNING, "⚠️ Could not delete " + p, ex);
-                            }
-                        });
-            } else {
+            if (Files.notExists(dir)) {
                 Files.createDirectories(dir);
-                logger.info("📂 Created directory: " + dirPath);
+                LOGGER.info(() -> "📂 Created directory: " + dirPath);
+                return;
             }
-            logger.info("🧹 Cleaned directory: " + dirPath);
+
+            // try-with-resources when using Streams:
+            try (var files = Files.list(dir)) {
+                files
+                        .filter(Files::isRegularFile)
+                        .forEach(this::deleteFileQuietly);
+            }
+
+            LOGGER.info(() -> "🧹 Cleaned directory: " + dirPath);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "❌ Could not clean " + dirPath, e);
+            LOGGER.log(Level.SEVERE, e, () -> "❌ Could not clean " + dirPath);
+        }
+    }
+
+    /**
+     * Delete a file and log on failure.
+     */
+    private void deleteFileQuietly(Path file) {
+        try {
+            Files.deleteIfExists(file);
+            LOGGER.fine(() -> "🧹 Deleted: " + file);
+        } catch (IOException ex) {
+            LOGGER.log(Level.WARNING, ex, () -> "⚠️ Could not delete " + file);
         }
     }
 }

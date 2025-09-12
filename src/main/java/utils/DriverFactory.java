@@ -4,45 +4,62 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import steps.Hooks;
+import com.qa.bdd.steps.Hooks;
 
+import java.util.Locale;
 import java.util.logging.Logger;
 
-public class DriverFactory {
-    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+/**
+ * Thread-safe WebDriver factory using ThreadLocal.
+ * Supports Chrome, Firefox, and Edge.
+ */
+public final class DriverFactory {
 
+    private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();
+    private static final Logger logger = Hooks.getLogger();
+
+    private DriverFactory() {
+        // prevent instantiation
+    }
+
+    /**
+     * Initializes a WebDriver for the given browser type and maximizes the window.
+     *
+     * @param browser browser type (chrome, firefox, edge)
+     */
     public static void initDriver(String browser) {
-        Logger logger = Hooks.getLogger();
-        logger.info("Launching browser: " + browser);
+        String normalized = browser.toLowerCase(Locale.ROOT);
+        logger.info(() -> "Launching browser: " + normalized);
 
-        switch (browser.toLowerCase()) {
-            case "chrome":
-                driver.set(new ChromeDriver());
-                break;
-            case "firefox":
-                driver.set(new FirefoxDriver());
-                break;
-            case "edge":
-                driver.set(new EdgeDriver());
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported browser: " + browser);
+        switch (normalized) {
+            case "chrome" -> DRIVER.set(new ChromeDriver());
+            case "firefox" -> DRIVER.set(new FirefoxDriver());
+            case "edge" -> DRIVER.set(new EdgeDriver());
+            default -> throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
 
-        driver.get().manage().window().maximize();
-        logger.info("Browser launched and maximized successfully.");
+        DRIVER.get().manage().window().maximize();
+        logger.info(() -> "Browser launched and maximized successfully.");
     }
 
+    /**
+     * Returns the WebDriver instance for the current thread.
+     *
+     * @return thread-local WebDriver
+     */
     public static WebDriver getDriver() {
-        return driver.get();
+        return DRIVER.get();
     }
 
+    /**
+     * Quits the WebDriver for the current thread and removes it from ThreadLocal.
+     */
     public static void quitDriver() {
-        Logger logger = Hooks.getLogger();
-        if (driver.get() != null) {
-            driver.get().quit();
-            logger.info("Browser closed successfully.");
-            driver.remove();
+        WebDriver driver = DRIVER.get();
+        if (driver != null) {
+            driver.quit();
+            logger.info(() -> "Browser closed successfully.");
+            DRIVER.remove();
         }
     }
 }

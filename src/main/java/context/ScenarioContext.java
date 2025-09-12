@@ -31,8 +31,13 @@ public class ScenarioContext {
         return val == null ? null : val.toString();
     }
 
+    /**
+     * Clear context map and remove the ThreadLocal
+     * to avoid memory leaks when threads are reused.
+     */
     public void clear() {
         context.get().clear();
+        context.remove();  // ✅ release the ThreadLocal reference
     }
 
     // Keep compatibility for Response
