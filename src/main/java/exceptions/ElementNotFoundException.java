@@ -7,6 +7,7 @@ public class ElementNotFoundException extends RuntimeException {
         super(message);
     }
 
+    @SuppressWarnings("unused")
     public ElementNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
