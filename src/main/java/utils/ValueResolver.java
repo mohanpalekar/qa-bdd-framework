@@ -4,10 +4,11 @@ import com.github.javafaker.Faker;
 import context.ScenarioContext;
 import com.qa.bdd.steps.Hooks;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 public final class ValueResolver {
@@ -104,8 +105,9 @@ public final class ValueResolver {
                     Hooks.getLogger().info(() -> "NumberFormatException");
                 }
             }
-            double val = ThreadLocalRandom.current().nextDouble(1, max);
-            return String.format("%." + decimalPlaces + "f", val);
+            double val = new SecureRandom().nextDouble() * (max - 1) + 1;
+            BigDecimal bd = BigDecimal.valueOf(val).setScale(decimalPlaces, RoundingMode.HALF_UP);
+            return bd.toPlainString();
 
         }
 

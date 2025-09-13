@@ -25,7 +25,7 @@ import java.util.logging.Logger;
                 "timeline:target/threads-report/",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
         },
-        tags = "@ui1"
+        tags = "@ui or @api"
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 
