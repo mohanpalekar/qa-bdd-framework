@@ -25,7 +25,7 @@ on:
 jobs:
   tests:
     # Pick a specific runner or any self-hosted Windows runner
-    runs-on: ${{ inputs.runnerLabel != '' && format('[self-hosted, windows, {0}]', inputs.runnerLabel) || '[self-hosted, windows]' }}
+    runs-on: ${{ inputs.runnerLabel != '' && format('[self-hosted, Windows, {0}]', inputs.runnerLabel) || '[self-hosted, Windows]' }}
 
     steps:
       - name: Checkout
