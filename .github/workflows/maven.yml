@@ -57,11 +57,11 @@ jobs:
             "-Dparallel=${{ inputs.parallel }}" `
             "-Denv=${{ inputs.env }}"
 
-      - name: Upload Cucumber Execution Report
+      - name: Upload Extent Report
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: target/cucumber-reports/html
+          path: target/spark
 
   publish:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -70,13 +70,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Cucumber Report
+      - name: Download Extent Report
         uses: actions/download-artifact@v4
         with:
           name: test-report
           path: report
 
-      - name: Deploy Cucumber Report to GitHub Pages
+      - name: Deploy Extent Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -108,7 +108,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B sonar:sonar `
+          mvn -B verify sonar:sonar `
             "-Dsonar.organization=mohanpalekar" `
             "-Dsonar.projectKey=qa-bdd-framework" `
             "-Dsonar.host.url=https://sonarcloud.io" `
