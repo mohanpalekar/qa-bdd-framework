@@ -57,11 +57,11 @@ jobs:
             "-Dparallel=${{ inputs.parallel }}" `
             "-Denv=${{ inputs.env }}"
 
-      - name: Upload Extent Report
+      - name: Upload Extent Spark Report
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: target/spark
+          path: target/ExtentReports
 
   publish:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -70,13 +70,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Extent Report
+      - name: Download Extent Spark Report
         uses: actions/download-artifact@v4
         with:
           name: test-report
           path: report
 
-      - name: Deploy Extent Report to GitHub Pages
+      - name: Rename SparkReport.html to index.html
+        run: |
+          if (Test-Path "report/SparkReport.html") {
+            Rename-Item "report/SparkReport.html" "report/index.html"
+          }
+
+      - name: Deploy Spark Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
