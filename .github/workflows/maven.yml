@@ -21,7 +21,7 @@ on:
 
 jobs:
   tests:
-    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "Windows", "{0}"]', inputs.runnerLabel) || '["self-hosted", "Windows"]') }}
+    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build & Test
-        shell: pwsh
+        shell: powershell
         run: |
           echo "Running tests with:"
           echo "Tags: ${{ inputs.tags }}"
@@ -61,7 +61,7 @@ jobs:
           path: target/site/jacoco
 
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
     needs: tests
     steps:
       - name: Checkout
@@ -80,7 +80,7 @@ jobs:
           publish_dir: jacoco
 
   sonar:
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
     needs: tests
     steps:
       - name: Checkout
@@ -104,8 +104,8 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B sonar:sonar \
-            -Dsonar.organization=your-org \
-            -Dsonar.projectKey=your-project-key \
-            -Dsonar.host.url=https://sonarcloud.io \
+          mvn -B sonar:sonar `
+            -Dsonar.organization=your-org `
+            -Dsonar.projectKey=your-project-key `
+            -Dsonar.host.url=https://sonarcloud.io `
             -Dsonar.login=${SONAR_TOKEN}
