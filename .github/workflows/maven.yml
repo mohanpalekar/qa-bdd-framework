@@ -19,6 +19,9 @@ on:
         description: 'Optional self-hosted runner label (runner-1, runner-2…)'
         default: ''
 
+permissions:
+  contents: write  # Required for GitHub Pages deployment
+
 jobs:
   tests:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -32,7 +35,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Cache Maven repo
+      - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
@@ -92,7 +95,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Cache Maven repo
+      - name: Cache Maven dependencies
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
