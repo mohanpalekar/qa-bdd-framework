@@ -1,32 +1,27 @@
 name: CI – Build, Test, Coverage, Sonar, Publish
 
 on:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
   workflow_dispatch:
     inputs:
       tags:
         description: 'Cucumber tags to run (e.g. @smoke)'
-        default: ''
+        default: '@smoke'
       threadCount:
         description: 'Thread count for parallel tests'
-        default: '5'
+        default: '2'
       parallel:
         description: 'Parallel mode (methods/classes/scenarios)'
         default: 'methods'
       env:
         description: 'Environment (dev/qa/prod)'
-        default: 'dev'
+        default: 'sit'
       runnerLabel:
-        description: 'Optional self-hosted runner label (runner1, runner2…) leave blank for any'
+        description: 'Optional self-hosted runner label (runner-1, runner-2…)'
         default: ''
 
 jobs:
   tests:
-    # Pick a specific runner or any self-hosted Windows runner
-    runs-on: ${{ inputs.runnerLabel != '' && format('[self-hosted, Windows, {0}]', inputs.runnerLabel) || '[self-hosted, Windows]' }}
-
+    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "Windows", "{0}"]', inputs.runnerLabel) || '["self-hosted", "Windows"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,15 +44,15 @@ jobs:
         shell: pwsh
         run: |
           echo "Running tests with:"
-          echo "Tags: ${{ github.event.inputs.tags }}"
-          echo "Thread count: ${{ github.event.inputs.threadCount }}"
-          echo "Parallel: ${{ github.event.inputs.parallel }}"
-          echo "Env: ${{ github.event.inputs.env }}"
+          echo "Tags: ${{ inputs.tags }}"
+          echo "Thread count: ${{ inputs.threadCount }}"
+          echo "Parallel: ${{ inputs.parallel }}"
+          echo "Env: ${{ inputs.env }}"
           mvn -B clean verify `
-            -Dcucumber.filter.tags="${{ github.event.inputs.tags }}" `
-            -DthreadCount=${{ github.event.inputs.threadCount }} `
-            -Dparallel=${{ github.event.inputs.parallel }} `
-            -Denv=${{ github.event.inputs.env }}
+            -Dcucumber.filter.tags="${{ inputs.tags }}" `
+            -DthreadCount=${{ inputs.threadCount }} `
+            -Dparallel=${{ inputs.parallel }} `
+            -Denv=${{ inputs.env }}
 
       - name: Upload JaCoCo HTML report
         uses: actions/upload-artifact@v4
