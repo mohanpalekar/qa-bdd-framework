@@ -17,7 +17,7 @@ on:
         default: 'sit'
       runnerLabel:
         description: 'Optional self-hosted runner label (runner-1, runner-2…)'
-        default: ''
+        default: 'runner-1'
 
 permissions:
   contents: write  # Required for GitHub Pages deployment
@@ -57,11 +57,13 @@ jobs:
             "-Dparallel=${{ inputs.parallel }}" `
             "-Denv=${{ inputs.env }}"
 
-      - name: Upload JaCoCo HTML report
+      - name: Upload Test Reports
         uses: actions/upload-artifact@v4
         with:
-          name: jacoco-report
-          path: target/site/jacoco
+          name: test-report
+          path: |
+            target/cucumber-reports/html
+            target/site/jacoco
 
   publish:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -70,17 +72,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download JaCoCo report
+      - name: Download Test Report
         uses: actions/download-artifact@v4
         with:
-          name: jacoco-report
-          path: jacoco
+          name: test-report
+          path: report
 
-      - name: Deploy HTML coverage to GitHub Pages
+      - name: Deploy Test Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: jacoco
+          publish_dir: report
 
   sonar:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -104,11 +106,12 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Run SonarCloud Scan
+        shell: powershell
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B sonar:sonar `
-             "-Dsonar.organization=your-org" `
-             "-Dsonar.projectKey=your-project-key" `
-             "-Dsonar.host.url=https://sonarcloud.io" `
-             "-Dsonar.login=${{ env.SONAR_TOKEN }}"
+            "-Dsonar.organization=your-org" `
+            "-Dsonar.projectKey=your-project-key" `
+            "-Dsonar.host.url=https://sonarcloud.io" `
+            "-Dsonar.login=${{ env.SONAR_TOKEN }}"
