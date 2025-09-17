@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValueResolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">QA BDD Framework</a> &gt; <a href="index.source.html" class="el_package">utils</a> &gt; <span class="el_source">ValueResolver.java</span></div><h1>ValueResolver.java</h1><pre class="source lang-java linenums">package utils;
+
+import com.github.javafaker.Faker;
+import context.ScenarioContext;
+import com.qa.bdd.steps.Hooks;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
+
+public final class ValueResolver {
+<span class="fc" id="L15">    private static final Faker FAKER = new Faker();</span>
+<span class="fc" id="L16">    private static final SecureRandom RANDOM = new SecureRandom();</span>
+
+    private ValueResolver() {
+    } // utility class
+
+    public static String resolve(String rawValue) {
+<span class="fc" id="L22">        Logger logger = Hooks.getLogger();</span>
+
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if (rawValue == null || rawValue.isBlank()) return &quot;&quot;;</span>
+
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (logger != null) logger.info(() -&gt; &quot;🔍 Resolving value token: &quot; + rawValue);</span>
+
+<span class="pc bpc" id="L28" title="1 of 4 branches missed.">        if (rawValue.startsWith(&quot;${context:&quot;) &amp;&amp; rawValue.endsWith(&quot;}&quot;)) {</span>
+<span class="fc" id="L29">            return resolveFromContext(rawValue, logger);</span>
+        }
+
+<span class="pc bpc" id="L32" title="3 of 4 branches missed.">        if (rawValue.startsWith(&quot;${vault:&quot;) &amp;&amp; rawValue.endsWith(&quot;}&quot;)) {</span>
+<span class="nc" id="L33">            return resolveFromVault(rawValue, logger);</span>
+        }
+
+<span class="pc bpc" id="L36" title="2 of 6 branches missed.">        if (rawValue.startsWith(&quot;${&quot;) &amp;&amp; rawValue.endsWith(&quot;}&quot;) &amp;&amp; rawValue.contains(&quot;=&quot;)) {</span>
+<span class="fc" id="L37">            return resolveAndStore(rawValue, logger);</span>
+        }
+
+<span class="pc bpc" id="L40" title="3 of 4 branches missed.">        if (rawValue.startsWith(&quot;${&quot;) &amp;&amp; rawValue.endsWith(&quot;}&quot;)) {</span>
+<span class="nc" id="L41">            String tokenPattern = rawValue.substring(2, rawValue.length() - 1);</span>
+<span class="nc" id="L42">            String val = generateCombination(tokenPattern);</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (logger != null) logger.info(() -&gt;String.format(&quot;✨ Generated %s -&gt; %s&quot;, tokenPattern, val));</span>
+<span class="nc" id="L44">            return val;</span>
+        }
+
+<span class="fc" id="L47">        return rawValue;</span>
+    }
+
+    private static String resolveFromContext(String rawValue, Logger logger) {
+<span class="fc" id="L51">        String key = rawValue.substring(10, rawValue.length() - 1);</span>
+<span class="fc" id="L52">        String val = ScenarioContext.getString(key);</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (logger != null) logger.info(() -&gt; &quot;📦 Using context value for key: &quot; + key + &quot; -&gt; &quot; + val);</span>
+<span class="fc" id="L54">        return val;</span>
+    }
+
+    private static String resolveFromVault(String rawValue, Logger logger) {
+<span class="nc" id="L58">        String secretKey = rawValue.substring(8, rawValue.length() - 1);</span>
+<span class="nc" id="L59">        String val = &quot;fetched-secret-&quot; + secretKey; // placeholder</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (logger != null) logger.info(() -&gt; &quot;🔑 Using vault secret for key: &quot; + secretKey);</span>
+<span class="nc" id="L61">        return val;</span>
+    }
+
+    private static String resolveAndStore(String rawValue, Logger logger) {
+<span class="fc" id="L65">        String inside = rawValue.substring(2, rawValue.length() - 1);</span>
+<span class="fc" id="L66">        String[] parts = inside.split(&quot;=&quot;, 2);</span>
+<span class="fc" id="L67">        String key = parts[0].trim();</span>
+<span class="fc" id="L68">        String tokenPattern = parts[1].trim();</span>
+<span class="fc" id="L69">        String value = generateCombination(tokenPattern);</span>
+<span class="fc" id="L70">        ScenarioContext.put(key, value);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (logger != null)</span>
+<span class="fc" id="L72">            logger.info(()-&gt;String.format(&quot;✨ Generated and saved %s for key %s -&gt; %s&quot;, tokenPattern, key, value));</span>
+<span class="fc" id="L73">        return value;</span>
+    }
+
+    private static String generateCombination(String tokenPattern) {
+<span class="fc" id="L77">        String[] tokens = tokenPattern.split(&quot;\\+&quot;);</span>
+<span class="fc" id="L78">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (String token : tokens) sb.append(generateSingle(token.trim()));</span>
+<span class="fc" id="L80">        return sb.toString();</span>
+    }
+
+    private static String generateSingle(String token) {
+<span class="fc" id="L84">        token = token.toLowerCase();</span>
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (token.startsWith(&quot;date:&quot;)) {</span>
+<span class="nc" id="L87">            return LocalDate.now().format(DateTimeFormatter.ofPattern(token.split(&quot;:&quot;, 2)[1]));</span>
+        }
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (token.startsWith(&quot;futuredate:&quot;)) {</span>
+<span class="nc" id="L90">            String[] parts = token.split(&quot;:&quot;);</span>
+<span class="nc" id="L91">            int days = Integer.parseInt(parts[1]);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            String fmt = parts.length &gt; 2 ? parts[2] : &quot;yyyy-MM-dd&quot;;</span>
+<span class="nc" id="L93">            return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern(fmt));</span>
+        }
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (token.startsWith(&quot;number:&quot;)) return randomNumeric(Integer.parseInt(token.split(&quot;:&quot;)[1]));</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (token.startsWith(&quot;string:&quot;)) return randomString(Integer.parseInt(token.split(&quot;:&quot;)[1]));</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (token.startsWith(&quot;float:&quot;)) {</span>
+<span class="fc" id="L98">            String[] parts = token.split(&quot;:&quot;);</span>
+<span class="fc" id="L99">            double max = Math.pow(10, Integer.parseInt(parts[1])) - 1;</span>
+<span class="fc" id="L100">            int decimalPlaces = 2; // default</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            if (parts.length &gt; 2) {</span>
+                try {
+<span class="fc" id="L103">                    decimalPlaces = Integer.parseInt(parts[2]);</span>
+<span class="nc" id="L104">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L105">                    Hooks.getLogger().info(() -&gt; &quot;NumberFormatException&quot;);</span>
+<span class="fc" id="L106">                }</span>
+            }
+<span class="fc" id="L108">            double val = new SecureRandom().nextDouble() * (max - 1) + 1;</span>
+<span class="fc" id="L109">            BigDecimal bd = BigDecimal.valueOf(val).setScale(decimalPlaces, RoundingMode.HALF_UP);</span>
+<span class="fc" id="L110">            return bd.toPlainString();</span>
+
+        }
+
+<span class="pc bpc" id="L114" title="5 of 6 branches missed.">        return switch (token) {</span>
+<span class="fc" id="L115">            case &quot;firstname&quot; -&gt; FAKER.name().firstName();</span>
+<span class="nc" id="L116">            case &quot;lastname&quot; -&gt; FAKER.name().lastName();</span>
+<span class="nc" id="L117">            case &quot;email&quot; -&gt; FAKER.internet().emailAddress();</span>
+<span class="nc" id="L118">            case &quot;phonenumber&quot; -&gt; FAKER.phoneNumber().cellPhone();</span>
+<span class="nc" id="L119">            case &quot;address&quot; -&gt; FAKER.address().fullAddress();</span>
+<span class="nc" id="L120">            default -&gt; throw new UnknownTokenException(token);</span>
+        };
+    }
+
+    private static String randomNumeric(int digits) {
+<span class="fc" id="L125">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        for (int i = 0; i &lt; digits; i++) sb.append(RANDOM.nextInt(10));</span>
+<span class="fc" id="L127">        return sb.toString();</span>
+    }
+
+    private static String randomString(int length) {
+<span class="nc" id="L131">        String chars = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&quot;;</span>
+<span class="nc" id="L132">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        for (int i = 0; i &lt; length; i++) sb.append(chars.charAt(RANDOM.nextInt(chars.length())));</span>
+<span class="nc" id="L134">        return sb.toString();</span>
+    }
+
+    public static class UnknownTokenException extends RuntimeException {
+        public UnknownTokenException(String token) {
+<span class="nc" id="L139">            super(&quot;Unknown token: &quot; + token);</span>
+<span class="nc" id="L140">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

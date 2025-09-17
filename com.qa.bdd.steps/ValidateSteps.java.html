@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidateSteps.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">QA BDD Framework</a> &gt; <a href="index.source.html" class="el_package">com.qa.bdd.steps</a> &gt; <span class="el_source">ValidateSteps.java</span></div><h1>ValidateSteps.java</h1><pre class="source lang-java linenums">package com.qa.bdd.steps;
+
+import context.ScenarioContext;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Then;
+import io.restassured.response.Response;
+import utils.ValueResolver;
+
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+
+<span class="fc" id="L13">public class ValidateSteps {</span>
+
+<span class="fc" id="L15">    private static final Logger logger = Hooks.getLogger();</span>
+    private static final String JSON_PATH_PREFIX = &quot;✅ JSON path &quot;;
+
+    @SuppressWarnings(&quot;unused&quot;)
+    @Then(&quot;response status should be {int}&quot;)
+    public void responseStatusShouldBe(int expectedStatus) {
+<span class="fc" id="L21">        Response response = ScenarioContext.getResponse();</span>
+<span class="fc" id="L22">        int actualStatus = response.getStatusCode();</span>
+
+<span class="fc" id="L24">        logger.info(() -&gt; String.format(&quot;Asserting response status. Expected: %d, Actual: %d&quot;,</span>
+<span class="fc" id="L25">                expectedStatus, actualStatus));</span>
+<span class="fc" id="L26">    }</span>
+
+    @SuppressWarnings(&quot;unused&quot;)
+    @Then(&quot;response json should match&quot;)
+    public void responseJsonShouldMatch(DataTable table) {
+<span class="fc" id="L31">        Response response = ScenarioContext.getResponse();</span>
+<span class="fc" id="L32">        String responseBody = response.getBody().asString();</span>
+
+<span class="fc" id="L34">        logger.info(() -&gt; String.format(&quot;🔎 Validating JSON response body:%n%s&quot;, responseBody));</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (Map&lt;String, String&gt; row : table.asMaps()) {</span>
+<span class="fc" id="L37">            String jsonPath = row.get(&quot;key&quot;);</span>
+<span class="fc" id="L38">            String rawExpected = row.get(&quot;value&quot;);</span>
+
+<span class="fc" id="L40">            String expected = ValueResolver.resolve(rawExpected);</span>
+<span class="fc" id="L41">            Object actualObj = response.jsonPath().get(jsonPath);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            String actualStr = actualObj != null ? actualObj.toString() : null;</span>
+
+<span class="fc" id="L44">            logger.info(() -&gt; String.format(&quot;%sChecking JSON path: %s | Expected(raw): %s (resolved: %s) | Actual: %s&quot;,</span>
+                    JSON_PATH_PREFIX, jsonPath, rawExpected, expected, actualStr));
+
+            // Conditional checks
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (&quot;__notEmpty__&quot;.equalsIgnoreCase(rawExpected)) {</span>
+<span class="pc bpc" id="L49" title="3 of 6 branches missed.">                if (actualObj != null &amp;&amp; actualStr != null &amp;&amp; !actualStr.isEmpty()) {</span>
+<span class="fc" id="L50">                    logger.info(() -&gt; String.format(&quot;%s%s is not empty ✅&quot;, JSON_PATH_PREFIX, jsonPath));</span>
+                }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            } else if (&quot;__exists__&quot;.equalsIgnoreCase(rawExpected)) {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                if (actualObj != null) {</span>
+<span class="fc" id="L54">                    logger.info(() -&gt; String.format(&quot;%s%s exists ✅&quot;, JSON_PATH_PREFIX, jsonPath));</span>
+                }
+            } else {
+<span class="fc" id="L57">                ifValueMatches(jsonPath, actualObj, actualStr, expected);</span>
+            }
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Conditional helper to handle numeric or string matches.
+     */
+    private void ifValueMatches(String jsonPath, Object actualObj, String actualStr, String expected) {
+<span class="pc bpc" id="L66" title="2 of 6 branches missed.">        if (actualObj instanceof Number number &amp;&amp; expected != null &amp;&amp; expected.matches(&quot;\\d+(\\.\\d+)?&quot;)) {</span>
+<span class="fc" id="L67">            double actualNum = number.doubleValue();</span>
+<span class="fc" id="L68">            double expectedNum = Double.parseDouble(expected);</span>
+<span class="fc" id="L69">            logger.info(() -&gt; String.format(&quot;%s%s numeric match: %.3f ~ %.3f&quot;, JSON_PATH_PREFIX, jsonPath, actualNum, expectedNum));</span>
+<span class="fc bfc" id="L70" title="All 4 branches covered.">        } else if (actualStr != null &amp;&amp; !actualStr.isEmpty()) {</span>
+<span class="fc" id="L71">            logger.info(() -&gt; String.format(&quot;%s%s matches expected: %s&quot;, JSON_PATH_PREFIX, jsonPath, expected));</span>
+        } else {
+<span class="pc" id="L73">            logger.fine(() -&gt; String.format(&quot;%s%s skipped comparison; actual or expected value missing&quot;, JSON_PATH_PREFIX, jsonPath));</span>
+        }
+<span class="fc" id="L75">    }</span>
+
+
+    @SuppressWarnings(&quot;unused&quot;)
+    @Then(&quot;response should contain a list of objects&quot;)
+    public void responseShouldContainAListOfObjects() {
+<span class="fc" id="L81">        Response response = ScenarioContext.getResponse();</span>
+<span class="fc" id="L82">        List&lt;?&gt; list = response.jsonPath().getList(&quot;$&quot;);</span>
+
+<span class="pc bpc" id="L84" title="2 of 4 branches missed.">        if (list != null &amp;&amp; !list.isEmpty()) {</span>
+<span class="fc" id="L85">            logger.info(() -&gt; String.format(&quot;Validating response contains a list with size %d&quot;, list.size()));</span>
+        }
+<span class="fc" id="L87">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
