@@ -49,10 +49,10 @@ jobs:
           echo "Parallel: ${{ inputs.parallel }}"
           echo "Env: ${{ inputs.env }}"
           mvn -B clean verify `
-            -Dcucumber.filter.tags="${{ inputs.tags }}" `
-            -DthreadCount=${{ inputs.threadCount }} `
-            -Dparallel=${{ inputs.parallel }} `
-            -Denv=${{ inputs.env }}
+            "-Dcucumber.filter.tags=${{ inputs.tags }}" `
+            "-DthreadCount=${{ inputs.threadCount }}" `
+            "-Dparallel=${{ inputs.parallel }}" `
+            "-Denv=${{ inputs.env }}"
 
       - name: Upload JaCoCo HTML report
         uses: actions/upload-artifact@v4
