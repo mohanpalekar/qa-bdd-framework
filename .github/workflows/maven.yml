@@ -112,4 +112,5 @@ jobs:
             "-Dsonar.organization=mohanpalekar" `
             "-Dsonar.projectKey=qa-bdd-framework" `
             "-Dsonar.host.url=https://sonarcloud.io" `
-            "-Dsonar.login=${{ env.SONAR_TOKEN }}"
+            "-Dsonar.login=${{ env.SONAR_TOKEN }}" `
+            "-Dsonar.java.binaries=target/classes"
