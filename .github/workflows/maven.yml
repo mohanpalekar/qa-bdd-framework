@@ -57,13 +57,11 @@ jobs:
             "-Dparallel=${{ inputs.parallel }}" `
             "-Denv=${{ inputs.env }}"
 
-      - name: Upload Test Reports
+      - name: Upload Cucumber Execution Report
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: |
-            target/cucumber-reports/html
-            target/site/jacoco
+          path: target/cucumber-reports/html
 
   publish:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -72,13 +70,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download Test Report
+      - name: Download Cucumber Report
         uses: actions/download-artifact@v4
         with:
           name: test-report
           path: report
 
-      - name: Deploy Test Report to GitHub Pages
+      - name: Deploy Cucumber Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -111,7 +109,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B sonar:sonar `
-            "-Dsonar.organization=your-org" `
-            "-Dsonar.projectKey=your-project-key" `
+            "-Dsonar.organization=mohanpalekar" `
+            "-Dsonar.projectKey=qa-bdd-framework" `
             "-Dsonar.host.url=https://sonarcloud.io" `
             "-Dsonar.login=${{ env.SONAR_TOKEN }}"
