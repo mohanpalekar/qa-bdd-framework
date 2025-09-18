@@ -77,9 +77,10 @@ jobs:
           path: report
 
       - name: Rename SparkReport.html to index.html
+        shell: powershell
         run: |
-          if (Test-Path "report/SparkReport.html") {
-            Rename-Item "report/SparkReport.html" "report/index.html"
+          if (Test-Path "report\\SparkReport.html") {
+          Rename-Item "report\\SparkReport.html" "report\\index.html"
           }
 
       - name: Deploy Spark Report to GitHub Pages
