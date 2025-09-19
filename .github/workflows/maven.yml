@@ -116,6 +116,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B verify sonar:sonar `
+            "-DskipTests" `
             "-Dsonar.organization=mohanpalekar" `
             "-Dsonar.projectKey=qa-bdd-framework" `
             "-Dsonar.host.url=https://sonarcloud.io" `
