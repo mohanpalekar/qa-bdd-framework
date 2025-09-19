@@ -40,7 +40,7 @@ color: #00bcd4 !important;
 <a href="#"><span class="badge badge-primary">My Automation Suite</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Sept 19, 2025 01:33:29 am</span></a>
+<a href="#"><span class="badge badge-primary">Sept 19, 2025 09:12:00 am</span></a>
 </li>
 </ul>
 </div>
@@ -84,7 +84,7 @@ color: #00bcd4 !important;
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
 <ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">@api</a><a class="dropdown-item" href="#">@ui1</a><a class="dropdown-item" href="#">@ui</a>
+<a class="dropdown-item" href="#">@ui1</a><a class="dropdown-item" href="#">@ui</a>
 </ul>
 </li>
 </ul>
@@ -95,9 +95,9 @@ color: #00bcd4 !important;
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">Add Objects API</p>
+            <p class="name">DemoQA UI interactions</p>
             <p class="text-sm">
-              <span>1:33:32 am</span> / <span>00:00:07:974</span>
+              <span>9:12:04 am</span> / <span>00:00:24:723</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -105,10 +105,10 @@ color: #00bcd4 !important;
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">Add Objects API</h5>
-<span class='badge badge-success'>09.19.2025 1:33:32 am</span>
-<span class='badge badge-danger'>09.19.2025 1:33:40 am</span>
-<span class='badge badge-default'>00:00:07:974</span>
+<h5 class="test-status text-pass">DemoQA UI interactions</h5>
+<span class='badge badge-success'>09.19.2025 9:12:04 am</span>
+<span class='badge badge-danger'>09.19.2025 9:12:28 am</span>
+<span class='badge badge-default'>00:00:24:723</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -121,243 +121,7 @@ color: #00bcd4 !important;
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Add Objects API - Positive</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "add_objects.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>$.name</td><td></td></tr><tr><td>$.data.year</td><td>${year=number:4}</td></tr><tr><td>$.data.price</td><td>${price=float:3:2}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>name</td><td></td></tr><tr><td>data.year</td><td>${context:year}</td></tr><tr><td>data.price</td><td>${context:price}</td></tr><tr><td>id</td><td>__notEmpty__</td></tr><tr><td>createdAt</td><td>__exists__</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="3"><span class="badge log pass-bg mr-2">Pass</span>Add Objects API - Positive</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "add_objects.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>$.name</td><td>${name=firstname}</td></tr><tr><td>$.data.year</td><td>${year=number:4}</td></tr><tr><td>$.data.price</td><td>${price=float:3:2}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>name</td><td>${context:name}</td></tr><tr><td>data.year</td><td>${context:year}</td></tr><tr><td>data.price</td><td>${context:price}</td></tr><tr><td>id</td><td>__notEmpty__</td></tr><tr><td>createdAt</td><td>__exists__</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="14"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">Get Objects API</p>
-            <p class="text-sm">
-              <span>1:33:40 am</span> / <span>00:00:11:387</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">Get Objects API</h5>
-<span class='badge badge-success'>09.19.2025 1:33:40 am</span>
-<span class='badge badge-danger'>09.19.2025 1:33:51 am</span>
-<span class='badge badge-default'>00:00:11:387</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=14</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="15"><span class="badge log pass-bg mr-2">Pass</span>GET /objects returns a list of valid objects</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithoutOverrides(java.lang.String)">
-                <span>When I call api spec "get_objects.yaml" without overrides</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseShouldContainAListOfObjects()">
-                <span>And response should contain a list of objects</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>[0].id</td><td>1</td></tr><tr><td>[0].name</td><td>Google Pixel 6 Pro</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="17"><span class="badge log pass-bg mr-2">Pass</span>Get multiple objects by IDs</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "get_objects_by_ids.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>query:id</td><td>3</td></tr><tr><td>query:id</td><td>5</td></tr><tr><td>query:id</td><td>${myId=number:2}</td></tr><tr><td>wait</td><td>10</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="25"><span class="badge log pass-bg mr-2">Pass</span>Get objects with dynamically generated IDs</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "get_objects_by_ids.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>query:id</td><td>${randomId1=number:3}</td></tr><tr><td>query:id</td><td>${randomId2=number:3}</td></tr><tr><td>query:id</td><td>${randomId3=number:3}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>[0].id</td><td>${context:randomId3}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="31"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">DemoQA UI interactions</p>
-            <p class="text-sm">
-              <span>1:33:43 am</span> / <span>00:00:26:927</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">DemoQA UI interactions</h5>
-<span class='badge badge-success'>09.19.2025 1:33:43 am</span>
-<span class='badge badge-danger'>09.19.2025 1:34:10 am</span>
-<span class='badge badge-default'>00:00:26:927</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=31</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="32"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Success</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.launchBrowser(java.lang.String)">
-                <span>Given I launch browser "browser"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.navigateToUrl(java.lang.String)">
-                <span>Given I navigate to URL "sit.url"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.performUIActions(io.cucumber.datatable.DataTable)">
-                <span>When I perform UI actions</span>
-      <div><table class='markup-table table '><tr><td>operation</td><td>locatorKey</td><td>value</td></tr><tr><td>type</td><td>login.username</td><td>Admin</td></tr><tr><td>type</td><td>login.password</td><td>admin123</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>verify text</td><td>home.dashboard</td><td>Dashboard</td></tr><tr><td>verify text</td><td>home.employee.distribution.report</td><td>Employee Distribution by Location</td></tr><tr><td>click</td><td>home.user.menu</td><td></td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>verify text</td><td>login.page.text</td><td>Login</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="38"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Failure</div>
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Failure</div>
       </div>
     </div>
         <div class="collapse">
@@ -382,60 +146,27 @@ color: #00bcd4 !important;
           </div>
         </div>
   </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="45"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">User API</p>
-            <p class="text-sm">
-              <span>1:34:08 am</span> / <span>00:00:01:216</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">User API</h5>
-<span class='badge badge-success'>09.19.2025 1:34:08 am</span>
-<span class='badge badge-danger'>09.19.2025 1:34:09 am</span>
-<span class='badge badge-default'>00:00:01:216</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=45</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="46"><span class="badge log pass-bg mr-2">Pass</span>Create User API - Positive Scenario</div>
+        <div class="node" id="3"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Success</div>
       </div>
     </div>
         <div class="collapse">
           <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "user-api.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>path:tenantId</td><td>12345</td></tr><tr><td>query:verbose</td><td>true</td></tr><tr><td>$.name</td><td>John Doe</td></tr><tr><td>$.email</td><td>john@example.com</td></tr></table>
-      </div>
+              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.launchBrowser(java.lang.String)">
+                <span>Given I launch browser "browser"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 201</span>
+              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.navigateToUrl(java.lang.String)">
+                <span>Given I navigate to URL "sit.url"</span>
       <div>
       </div>
               </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>$.name</td><td>John Doe</td></tr></table>
+              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.performUIActions(io.cucumber.datatable.DataTable)">
+                <span>When I perform UI actions</span>
+      <div><table class='markup-table table '><tr><td>operation</td><td>locatorKey</td><td>value</td></tr><tr><td>type</td><td>login.username</td><td>Admin</td></tr><tr><td>type</td><td>login.password</td><td>admin123</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>verify text</td><td>home.dashboard</td><td>Dashboard</td></tr><tr><td>verify text</td><td>home.employee.distribution.report</td><td>Employee Distribution by Location</td></tr><tr><td>click</td><td>home.user.menu</td><td></td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>verify text</td><td>login.page.text</td><td>Login</td></tr></table>
       </div>
       <div>
       </div>
@@ -459,96 +190,10 @@ color: #00bcd4 !important;
 <div class="test-list">
 <div class="test-list-tools">
 <ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">3</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">2</span></a></li></ul>
 </div>
 <div class="test-list-wrapper scrollable">
 <ul class="test-list-item">
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>6</span>
-</span>
-<p class="name">@api</p>
-<p class="duration text-sm">6 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@api</h4>
-<span status="pass" class='badge log pass-bg'>6 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:32 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Add Objects API - Positive</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:32 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='3'>Add Objects API - Positive</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:40 am</td>
-<td>
-<a href="#" class="linked" test-id='14' id='15'>GET /objects returns a list of valid objects</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.GET /objects returns a list of valid objects</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:40 am</td>
-<td>
-<a href="#" class="linked" test-id='14' id='17'>Get multiple objects by IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get multiple objects by IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:42 am</td>
-<td>
-<a href="#" class="linked" test-id='14' id='25'>Get objects with dynamically generated IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get objects with dynamically generated IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>01:34:08 am</td>
-<td>
-<a href="#" class="linked" test-id='45' id='46'>Create User API - Positive Scenario</a>
-<div class="">
-<span class="badge badge-default">User API.Create User API - Positive Scenario</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
 <li class="test-item">
 <div class="test-detail">
 <span class="meta">
@@ -573,9 +218,9 @@ color: #00bcd4 !important;
 <tbody>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:43 am</td>
+<td>09:12:04 am</td>
 <td>
-<a href="#" class="linked" test-id='31' id='32'>Verify Login Success</a>
+<a href="#" class="linked" test-id='1' id='3'>Verify Login Success</a>
 <div class="">
 <span class="badge badge-default">DemoQA UI interactions.Verify Login Success</span>
 </div>
@@ -609,21 +254,21 @@ color: #00bcd4 !important;
 <tbody>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:43 am</td>
+<td>09:12:04 am</td>
 <td>
-<a href="#" class="linked" test-id='31' id='32'>Verify Login Success</a>
+<a href="#" class="linked" test-id='1' id='2'>Verify Login Failure</a>
 <div class="">
-<span class="badge badge-default">DemoQA UI interactions.Verify Login Success</span>
+<span class="badge badge-default">DemoQA UI interactions.Verify Login Failure</span>
 </div>
 </td>
 </tr>
 <tr class="tag-test-status" status="pass">
 <td><span class="badge log pass-bg">Pass</span></td>
-<td>01:33:51 am</td>
+<td>09:12:04 am</td>
 <td>
-<a href="#" class="linked" test-id='31' id='38'>Verify Login Failure</a>
+<a href="#" class="linked" test-id='1' id='3'>Verify Login Success</a>
 <div class="">
-<span class="badge badge-default">DemoQA UI interactions.Verify Login Failure</span>
+<span class="badge badge-default">DemoQA UI interactions.Verify Login Success</span>
 </div>
 </td>
 </tr>
@@ -644,19 +289,19 @@ color: #00bcd4 !important;
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Sept 19, 2025 01:33:29 am</h3>
+<h3>Sept 19, 2025 09:12:00 am</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Sept 19, 2025 01:34:10 am</h3>
+<h3>Sept 19, 2025 09:12:29 am</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Features Passed</p>
-<h3>4</h3>
+<h3>1</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -679,7 +324,7 @@ color: #00bcd4 !important;
 </div>
 <div class="card-footer">
 <div><small data-tooltip='100%'>
-<b>4</b> features passed
+<b>1</b> features passed
 </small>
 </div>
 <div>
@@ -701,7 +346,7 @@ color: #00bcd4 !important;
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>8</b> scenarios passed</small></div>
+<div><small data-tooltip='100%'><b>2</b> scenarios passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> scenarios failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
@@ -721,7 +366,7 @@ color: #00bcd4 !important;
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>24</b> steps passed</small></div>
+<div><small data-tooltip='100%'><b>6</b> steps passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> steps failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
@@ -740,7 +385,7 @@ color: #00bcd4 !important;
 </div></div>
 <script>
 var timeline = {
-"Add Objects API":7.974,"Get Objects API":11.387,"DemoQA UI interactions":26.927,"User API":1.216
+"DemoQA UI interactions":24.723
 };
 </script>
 <div class="row">
@@ -749,14 +394,6 @@ var timeline = {
 <div class="card-header"><p>Tags</p></div>
 <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
-<tr>
-<td>@api</td>
-<td>6</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
 <tr>
 <td>@ui1</td>
 <td>1</td>
@@ -782,18 +419,18 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 4,
+passParent: 1,
 failParent: 0,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
-passChild: 8,
+passChild: 2,
 failChild: 0,
 warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 24,
+passGrandChild: 6,
 failGrandChild: 0,
 warningGrandChild: 0,
 skipGrandChild: 0,
