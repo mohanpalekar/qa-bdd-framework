@@ -40,7 +40,7 @@ public final class ValueResolver {
         if (rawValue.startsWith("${") && rawValue.endsWith("}")) {
             String tokenPattern = rawValue.substring(2, rawValue.length() - 1);
             String val = generateCombination(tokenPattern);
-            if (logger != null) logger.info(() ->String.format("✨ Generated %s -> %s", tokenPattern, val));
+            if (logger != null) logger.info(() -> String.format("✨ Generated %s -> %s", tokenPattern, val));
             return val;
         }
 
@@ -69,7 +69,7 @@ public final class ValueResolver {
         String value = generateCombination(tokenPattern);
         ScenarioContext.put(key, value);
         if (logger != null)
-            logger.info(()->String.format("✨ Generated and saved %s for key %s -> %s", tokenPattern, key, value));
+            logger.info(() -> String.format("✨ Generated and saved %s for key %s -> %s", tokenPattern, key, value));
         return value;
     }
 
@@ -78,6 +78,24 @@ public final class ValueResolver {
         StringBuilder sb = new StringBuilder();
         for (String token : tokens) sb.append(generateSingle(token.trim()));
         return sb.toString();
+    }
+
+    /**
+     * Helper method to remove leading zero for fractional numbers (e.g., 0.5 -> .5).
+     * This extraction reduces the Cognitive Complexity of the calling method.
+     */
+    private static String formatFloatString(String floatStr) {
+        // Handle positive fractional numbers: 0.5 -> .5
+        if (floatStr.startsWith("0.") && floatStr.length() > 2) {
+            return floatStr.substring(1); // Removes the '0'
+        }
+
+        // Handle negative fractional numbers: -0.5 -> -.5
+        if (floatStr.startsWith("-0.")) {
+            return "-" + floatStr.substring(2); // Keeps the '-' and removes the '0'
+        }
+
+        return floatStr;
     }
 
     private static String generateSingle(String token) {
@@ -94,6 +112,7 @@ public final class ValueResolver {
         }
         if (token.startsWith("number:")) return randomNumeric(Integer.parseInt(token.split(":")[1]));
         if (token.startsWith("string:")) return randomString(Integer.parseInt(token.split(":")[1]));
+
         if (token.startsWith("float:")) {
             String[] parts = token.split(":");
             double max = Math.pow(10, Integer.parseInt(parts[1])) - 1;
@@ -106,9 +125,13 @@ public final class ValueResolver {
                 }
             }
             double val = new SecureRandom().nextDouble() * (max - 1) + 1;
-            BigDecimal bd = BigDecimal.valueOf(val).setScale(decimalPlaces, RoundingMode.HALF_UP);
-            return bd.toPlainString();
 
+            // Generate the BigDecimal, set scale, and strip trailing zeros
+            BigDecimal bd = BigDecimal.valueOf(val).setScale(decimalPlaces, RoundingMode.HALF_UP);
+            String floatStr = bd.stripTrailingZeros().toPlainString();
+
+            // Delegate complex formatting to the helper method
+            return formatFloatString(floatStr);
         }
 
         return switch (token) {
@@ -122,8 +145,20 @@ public final class ValueResolver {
     }
 
     private static String randomNumeric(int digits) {
+        if (digits <= 0) {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < digits; i++) sb.append(RANDOM.nextInt(10));
+
+        // 1. Generate the first digit (must be 1-9)
+        sb.append(RANDOM.nextInt(9) + 1);
+
+        // 2. Generate the remaining digits (0 to digits - 1)
+        for (int i = 0; i < digits - 1; i++) {
+            sb.append(RANDOM.nextInt(10));
+        }
+
         return sb.toString();
     }
 

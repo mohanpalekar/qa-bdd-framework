@@ -1,3 +1,4 @@
+@getObjectAPI
 Feature: Get Objects API
 
   @api
@@ -26,8 +27,8 @@ Feature: Get Objects API
       | key      | value                 |
       | query:id | ${randomId1=number:3} |
       | query:id | ${randomId2=number:3} |
-      | query:id | ${randomId3=number:3} |
+      | query:id | ${myId=number:1}      |
     Then response status should be 200
     And response json should match
-      | key    | value                |
-      | [0].id | ${context:randomId3} |
+      | key    | value           |
+      | [0].id | ${context:myId} |

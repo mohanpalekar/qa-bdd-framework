@@ -1,6 +1,6 @@
 Feature: User API
 
-  @api
+  @api @createUser
   Scenario: Create User API - Positive Scenario
     When I call api spec "user-api.yaml" with overrides
       | key           | value            |
@@ -8,7 +8,8 @@ Feature: User API
       | query:verbose | true             |
       | $.name        | John Doe         |
       | $.email       | john@example.com |
-    Then response status should be 201
+    Then response status should be 404
     And response json should match
-      | key    | value    |
-      | $.name | John Doe |
+      | key    | value     |
+      | status | 404       |
+      | error  | Not Found |

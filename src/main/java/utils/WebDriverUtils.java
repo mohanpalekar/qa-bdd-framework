@@ -4,6 +4,7 @@ import exceptions.ElementNotFoundException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import com.qa.bdd.steps.Hooks;
+import org.testng.Assert;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,58 +12,63 @@ import java.util.logging.Logger;
 public class WebDriverUtils {
 
     private static final int MAX_ATTEMPTS = 5;
+    private static final Logger logger = Hooks.getLogger();
 
     private WebDriverUtils() {
         // utility
     }
 
     private static WebElement findElement(String locatorKey, boolean clickable) {
-        Logger logger = Hooks.getLogger();
         String raw = LocatorUtils.getRaw(locatorKey);
-        logger.log(Level.INFO, "🔍 Resolving locator: {0} → {1}", new Object[]{locatorKey, raw});
+        String resolvingMessage = String.format("🔍 Resolving locator: %s → %s", locatorKey, raw);
+        logger.info(resolvingMessage);
         var by = LocatorUtils.get(locatorKey);
 
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
-                logger.log(Level.FINE, "Attempt {0}/{1} to locate: {2}",
-                        new Object[]{attempt, MAX_ATTEMPTS, locatorKey});
+                String attemptMessage = String.format("Attempt %d/%d to locate: %s",
+                        attempt, MAX_ATTEMPTS, locatorKey);
+                logger.log(Level.FINE, attemptMessage);
 
                 WebElement element = clickable
                         ? WebDriverUtilsInternal.waitForElementClickable(by)
                         : WebDriverUtilsInternal.waitForElement(by);
 
-                if (isUsable(element, locatorKey, logger)) {
+                if (isUsable(element, locatorKey)) {
                     WebDriverUtilsInternal.scrollToElement(element);
                     WebDriverUtilsInternal.highlightElement(element);
                     sleepSafe(Config.get("ui.actionDelay"));
-                    logger.log(Level.INFO, "✅ Found usable element for key: {0} on attempt {1}",
-                            new Object[]{locatorKey, attempt});
+                    String foundMessage = String.format("✅ Found usable element for key: %s on attempt %d",
+                            locatorKey, attempt);
+                    logger.info(foundMessage);
                     return element;
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING,
-                        "⚠️ Attempt {0} failed for {1} → By: {2} | Error: {3}",
-                        new Object[]{attempt, locatorKey, by, e.getMessage()});
+                String warningMessage = String.format("⚠️ Attempt %d failed for %s → By: %s | Error: %s",
+                        attempt, locatorKey, by, e.getMessage());
+                logger.log(Level.WARNING, warningMessage);
             }
             sleepSafe(Config.get("ui.retryDelay"));
         }
 
-        logger.log(Level.SEVERE, "❌ Could not locate usable element after {0} attempts: {1} → {2}",
-                new Object[]{MAX_ATTEMPTS, locatorKey, raw});
-        throw new ElementNotFoundException("❌ Could not locate usable element after " + MAX_ATTEMPTS +
-                " attempts: " + locatorKey + " → " + raw);
+        String failMessage = String.format("❌ Could not locate usable element after %d attempts: %s → %s",
+                MAX_ATTEMPTS, locatorKey, raw);
+        logger.log(Level.SEVERE, failMessage);
+        throw new ElementNotFoundException(failMessage);
     }
 
-    private static boolean isUsable(WebElement element, String locatorKey, Logger logger) {
+    private static boolean isUsable(WebElement element, String locatorKey) {
         if (element == null) {
             return false;
         }
         if (!element.isDisplayed()) {
-            logger.log(Level.WARNING, "⚠️ Element found but not displayed: {0}", locatorKey);
+            String notDisplayedMessage = String.format("⚠️ Element found but not displayed: %s", locatorKey);
+            logger.log(Level.WARNING, notDisplayedMessage);
             return false;
         }
         if (!element.isEnabled()) {
-            logger.log(Level.WARNING, "⚠️ Element found but not enabled: {0}", locatorKey);
+            String notEnabledMessage = String.format("⚠️ Element found but not enabled: %s", locatorKey);
+            logger.log(Level.WARNING, notEnabledMessage);
             return false;
         }
         return true;
@@ -73,6 +79,8 @@ public class WebDriverUtils {
             Thread.sleep(Long.parseLong(millisString));
         } catch (InterruptedException ie) {
             Thread.currentThread().interrupt();
+            String interruptedMessage = String.format("Sleep interrupted: %s", ie.getMessage());
+            logger.log(Level.WARNING, interruptedMessage);
         }
     }
 
@@ -93,7 +101,8 @@ public class WebDriverUtils {
 
     public static void jsClick(String locatorKey) {
         WebElement element = findElement(locatorKey, true);
-        Hooks.getLogger().log(Level.INFO, "Performing JS click on: {0}", locatorKey);
+        String clickMessage = String.format("Performing JS click on: %s", locatorKey);
+        logger.log(Level.INFO, clickMessage);
         JavascriptExecutor js = (JavascriptExecutor) DriverFactory.getDriver();
         js.executeScript("arguments[0].click();", element);
         WebDriverUtilsInternal.removeHighlight(element);
@@ -101,8 +110,9 @@ public class WebDriverUtils {
 
     public static void jsSendKeys(String locatorKey, String value) {
         WebElement element = findElement(locatorKey, true);
-        Hooks.getLogger().log(Level.INFO, "Performing JS sendKeys on: {0} with value: {1}",
-                new Object[]{locatorKey, value});
+        String sendKeysMessage = String.format("Performing JS sendKeys on: %s with value: %s",
+                locatorKey, value);
+        logger.log(Level.INFO, sendKeysMessage);
         JavascriptExecutor js = (JavascriptExecutor) DriverFactory.getDriver();
         js.executeScript("arguments[0].value = arguments[1];", element, value);
         WebDriverUtilsInternal.removeHighlight(element);
@@ -124,13 +134,13 @@ public class WebDriverUtils {
         WebElement element = findElement(locatorKey, false);
         String actualText = element.getText();
         WebDriverUtilsInternal.removeHighlight(element);
-        if (!actualText.equals(expectedText)) {
-            Hooks.getLogger().log(Level.SEVERE, "⚠️ Text mismatch for {0}: expected [{1}] but found [{2}]",
-                    new Object[]{locatorKey, expectedText, actualText});
-        } else {
-            Hooks.getLogger().log(Level.INFO, "✅ Text verified for {0}: {1}",
-                    new Object[]{locatorKey, actualText});
-        }
-    }
 
+        Assert.assertEquals(actualText, expectedText,
+                String.format("Text mismatch for element '%s'. Expected: '%s', Actual: '%s'",
+                        locatorKey, expectedText, actualText));
+
+        String successMessage = String.format("✅ Text verified for %s: %s",
+                locatorKey, actualText);
+        logger.log(Level.INFO, successMessage);
+    }
 }
