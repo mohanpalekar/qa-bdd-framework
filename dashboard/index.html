@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Test Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            /* Dark Theme Colors */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #333;
+            --pass-color: #4CAF50;
+            --fail-color: #F44336;
+            --info-color: #2196F3;
+        }
+
+        .light-theme {
+            /* Enriched Light Theme Colors */
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #3c4043;
+            --text-secondary: #5f6368;
+            --border-color: #e0e0e0;
+            --pass-color: #38a85c;
+            --fail-color: #ea4335;
+            --info-color: #1a73e8;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h4 {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        main.dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header.page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        header.page-header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav.controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        select, input, button {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .light-theme select,
+        .light-theme input,
+        .light-theme button {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        select:focus, input:focus, button:focus {
+            outline: none;
+            border-color: var(--info-color);
+        }
+
+        button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.matrix-toggle-btn {
+            background: var(--bg-secondary);
+        }
+
+        button.matrix-toggle-btn.active {
+            background-color: var(--info-color);
+            border-color: var(--info-color);
+        }
+
+        .light-theme button.matrix-toggle-btn.active {
+            color: #fff;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+            position: relative;
+        }
+
+        .light-theme .card {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 10px rgba(33, 150, 243, 0.5);
+        }
+
+        .light-theme .card:hover {
+            transform: none;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            margin-top: 15px;
+            background-color: var(--bg-secondary);
+            transition: background-color 0.3s;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        tr.failed td {
+            color: var(--fail-color);
+        }
+
+        tr.passed td {
+            color: var(--pass-color);
+        }
+
+        .nameCell {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .details-row {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--info-color);
+            padding: 15px 10px;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: background-color 0.3s, border-left-color 0.3s;
+        }
+
+        .light-theme .details-row {
+            background: #fafafa;
+            border-left: 4px solid var(--info-color);
+        }
+
+        .details-row.failed {
+            background: rgba(244, 67, 54, 0.1);
+            border-left-color: var(--fail-color);
+        }
+
+        .light-theme .details-row.failed {
+            background: rgba(234, 67, 53, 0.1);
+            border-left-color: var(--fail-color);
+        }
+
+        .details-row .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-row .step-list li {
+            margin-bottom: 5px;
+        }
+
+        .details-row .step-list .step-status {
+            font-weight: bold;
+            display: inline-block;
+            width: 70px;
+        }
+
+        .step-table {
+            border-collapse: collapse;
+            margin-top: 10px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .step-table th,
+        .step-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+            background: var(--bg-secondary);
+        }
+
+        .step-table th {
+            font-weight: normal;
+            color: var(--text-secondary);
+        }
+
+        .matrix-table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .matrix-table-container table td {
+            width: 20px;
+            text-align: center;
+        }
+
+        .matrix-table-container .block {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .matrix-table-container .green { background: var(--pass-color); }
+        .matrix-table-container .red { background: var(--fail-color); }
+        .matrix-table-container .grey { background: var(--border-color); }
+
+        .matrix-toggle {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .matrix-toggle button {
+            border: 1px solid var(--border-color);
+        }
+
+        .toggle-view {
+            margin-top: 10px;
+        }
+
+        .toggle-view button {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
+            padding: 5px 10px;
+            margin-left: 5px;
+        }
+
+        .toggle-view button.active {
+            background-color: var(--info-color);
+            border-color: var(--info-color);
+            color: #fff;
+        }
+
+        #loading-indicator {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .feature-filter-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-filter-container input {
+            padding-right: 30px;
+        }
+
+        .feature-filter-container .dropdown-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<main class="dashboard-container">
+    <header class="page-header">
+        <h1><i class="fas fa-tachometer-alt" aria-hidden="true"></i> QA Test Dashboard</h1>
+        <button id="themeToggleBtn" aria-label="Toggle between light and dark themes"><i class="fas fa-sun" aria-hidden="true"></i> Light Mode</button>
+    </header>
+
+    <nav class="controls">
+        <label for="runSelect"><i class="fas fa-play-circle" aria-hidden="true"></i> Run:</label>
+        <select id="runSelect" aria-label="Select Test Run"></select>
+
+        <label for="statusFilter"><i class="fas fa-filter" aria-hidden="true"></i> Status:</label>
+        <select id="statusFilter" aria-label="Filter by Test Status">
+            <option value="all">All</option>
+            <option value="passed">Passed</option>
+            <option value="failed">Failed</option>
+        </select>
+
+        <label for="featureFilterInput"><i class="fas fa-search" aria-hidden="true"></i> Feature:</label>
+        <div class="feature-filter-container">
+            <input type="text" id="featureFilterInput" placeholder="Filter by feature name" list="featureList" aria-label="Filter by feature name">
+            <i class="fas fa-caret-down dropdown-icon" aria-hidden="true"></i>
+            <datalist id="featureList"></datalist>
+        </div>
+        <button id="refreshBtn"><i class="fas fa-sync-alt" aria-hidden="true"></i> Refresh</button>
+    </nav>
+
+    <div class="row">
+        <section class="card" style="width: 250px;">
+            <h4>Status Summary</h4>
+            <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </section>
+        <section class="card">
+            <h4>Pass % Trend (Last 30 Runs)</h4>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </section>
+        <section class="card">
+            <h4>Feature Progress</h4>
+            <div class="chart-container">
+                <canvas id="featureChart"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <output id="loading-indicator">
+        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading...
+    </output>
+
+    <div id="details" class="card" style="display: none;"></div>
+</main>
+
+<script>
+    const manifestPath = 'json-files/index.json';
+    const runSelect = document.getElementById('runSelect');
+    const statusFilter = document.getElementById('statusFilter');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const detailsContainer = document.getElementById('details');
+    const featureFilterInput = document.getElementById('featureFilterInput');
+    const featureList = document.getElementById('featureList');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+    let allRunEntries = [];
+    let currentScenarios = [];
+    let currentView = 'scenarios';
+    let currentRunFeatures = [];
+    let currentMatrixMode = 'scenarios';
+    let statusChart, trendChart, featureChart;
+
+    function getCssVar(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    refreshBtn.onclick = () => loadRunListing();
+    runSelect.onchange = () => loadRun(runSelect.value);
+    statusFilter.onchange = () => renderDashboard(allRunEntries.find(e => e.url === runSelect.value)?.data);
+
+    featureFilterInput.addEventListener('input', () => {
+        renderDashboard(allRunEntries.find(e => e.url === runSelect.value)?.data);
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLightTheme = document.body.classList.contains('light-theme');
+        const icon = isLightTheme ? '<i class="fas fa-moon" aria-hidden="true"></i> Dark Mode' : '<i class="fas fa-sun" aria-hidden="true"></i> Light Mode';
+        const label = isLightTheme ? 'Toggle to dark theme' : 'Toggle to light theme';
+
+        themeToggleBtn.innerHTML = icon;
+        themeToggleBtn.setAttribute('aria-label', label);
+        renderCharts();
+    });
+
+    function renderCharts() {
+        const currentRunUrl = runSelect.value;
+        const currentRunEntry = allRunEntries.find(entry => entry.url === currentRunUrl);
+
+        if (currentRunEntry && currentRunEntry.data) {
+            const allScenarios = flattenFeatures(currentRunEntry.data);
+            renderStatusChart(allScenarios);
+            renderFeatureChart(allScenarios);
+            renderTrendChart();
+        }
+    }
+
+    function populateFeatureList(features) {
+        featureList.innerHTML = '';
+        const uniqueFeatures = [...new Set(features.map(f => f.name))].sort();
+
+        for (const featureName of uniqueFeatures) {
+            const option = document.createElement('option');
+            option.value = featureName;
+            featureList.appendChild(option);
+        }
+    }
+
+    function nsToMs(ns) { return ns ? ns / 1_000_000 : 0; }
+
+    function msToMinSec(ms) {
+        const t = Math.round(ms / 1000);
+        const m = Math.floor(t / 60);
+        const s = t % 60;
+
+        let result = '';
+        if (m > 0) {
+            result += `${m}m `;
+        }
+        result += `${s}s`;
+
+        return result.trim();
+    }
+
+    function computeScenarioDuration(s) {
+        let ns = 0;
+
+        const allStepsAndHooks = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+        for (const item of allStepsAndHooks) {
+             ns += item.result?.duration || 0;
+        }
+        return nsToMs(ns);
+    }
+
+    function scenarioStatus(s) {
+        if (!s || !s.steps || !Array.isArray(s.steps)) {
+            return 'unknown';
+        }
+
+        const allStepsAndHooks = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+
+        if (allStepsAndHooks.some(st => st.result?.status === 'failed')) {
+            return 'failed';
+        }
+
+        return 'passed';
+    }
+
+    function getFailureReason(s) {
+        const allSteps = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+        for (const step of allSteps) {
+            if (step.result?.status === 'failed' && step.result?.error_message) {
+                return step.result.error_message.split('\n')[0];
+            }
+        }
+        return 'Unknown Failure';
+    }
+
+    function showLoading() {
+        detailsContainer.style.display = 'none';
+        loadingIndicator.style.display = 'block';
+        loadingIndicator.setAttribute('aria-busy', 'true');
+    }
+
+    function hideLoading() {
+        loadingIndicator.style.display = 'none';
+        detailsContainer.style.display = 'block';
+        loadingIndicator.setAttribute('aria-busy', 'false');
+    }
+
+    async function loadRunListing() {
+        showLoading();
+        try {
+            const r = await fetch(manifestPath, { cache: "no-store" });
+            if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+            const list = await r.json();
+
+            allRunEntries = (list || []).slice().sort((a, b) => b.name.localeCompare(a.name));
+
+            runSelect.innerHTML = '';
+            for (const e of allRunEntries) {
+                const o = document.createElement('option');
+                o.value = e.url;
+                o.textContent = e.name.replace('.json', '');
+                runSelect.appendChild(o);
+            }
+
+            if (allRunEntries.length) {
+                // Fetch all data for trend chart and caching
+                const fetchPromises = allRunEntries.map(e =>
+                    e.data ? Promise.resolve(e.data) : fetch(e.url).then(res => res.json()).catch(() => null)
+                );
+
+                const results = await Promise.all(fetchPromises);
+                results.forEach((data, i) => {
+                    allRunEntries[i].data = data;
+                });
+
+                runSelect.value = allRunEntries[0].url;
+                loadRun(allRunEntries[0].url);
+            } else {
+                hideLoading();
+                detailsContainer.innerHTML = `<p style="color:${getCssVar('--text-secondary')};">No test runs found in the manifest file.</p>`;
+            }
+        } catch (error) {
+            console.error('Error loading run listing:', error);
+            hideLoading();
+            detailsContainer.innerHTML = `<p style="color:${getCssVar('--fail-color')};">Error: Could not load test runs. Check the file path and ensure the JSON files exist.</p>`;
+        }
+    }
+
+    async function loadRun(url) {
+        showLoading();
+        try {
+            let data = allRunEntries.find(entry => entry.url === url)?.data;
+            if (!data) {
+                const r = await fetch(url, { cache: "no-store" });
+                if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+                data = await r.json();
+                const currentRunEntry = allRunEntries.find(entry => entry.url === url);
+                if (currentRunEntry) currentRunEntry.data = data;
+            }
+
+            const allScenarios = flattenFeatures(data);
+
+            const featureNames = [...new Set(allScenarios.map(s => s.featureName || 'unknown'))].sort().map(name => ({name}));
+            populateFeatureList(featureNames);
+
+            renderDashboard(data);
+        } catch (error) {
+            console.error('Error loading run data:', error);
+            hideLoading();
+            detailsContainer.innerHTML = `<p style="color:${getCssVar('--fail-color')};">Error: Could not load data for this run. The file may be missing or corrupt.</p>`;
+        }
+    }
+
+    function flattenFeatures(json) {
+        if (Array.isArray(json)) {
+            return json.flatMap(f => {
+                const fid = f.id || f.name || 'unknown';
+                return (f.elements || []).map(e => ({ ...e, featureId: fid, featureName: f.name }));
+            });
+        }
+        if (json && json.features) {
+            return json.features.flatMap(f => {
+                const fid = f.id || f.name || 'unknown';
+                return (f.elements || []).map(e => ({ ...e, featureId: fid, featureName: f.name }));
+            });
+        }
+        return [];
+    }
+
+    function getFilteredScenarios(data) {
+        let scenarios = flattenFeatures(data);
+
+        const status = statusFilter.value;
+        if (status !== 'all') {
+            scenarios = scenarios.filter(s => scenarioStatus(s) === status);
+        }
+
+        const fVal = featureFilterInput.value.trim().toLowerCase();
+        if (fVal) {
+             scenarios = scenarios.filter(s => (s.featureName || '').toLowerCase().includes(fVal));
+        }
+
+        return scenarios;
+    }
+
+    function calculatePassRate(total, passed) {
+        if (total === 0) {
+            return '0.0';
+        }
+        return (passed / total * 100).toFixed(1);
+    }
+
+    function getRunSummaryData(allScenarios, data) {
+        const allScenariosCount = allScenarios.length;
+        const passedScenarios = allScenarios.filter(s => scenarioStatus(s) === 'passed').length;
+        const failedScenarios = allScenariosCount - passedScenarios;
+
+        const features = [...new Set(allScenarios.map(s => s.featureId))];
+        const passedFeatures = features.filter(fid =>
+            allScenarios.filter(s => s.featureId === fid).every(s => scenarioStatus(s) === 'passed')
+        ).length;
+
+        const scenarioPassRate = calculatePassRate(allScenariosCount, passedScenarios);
+        const featurePassRate = calculatePassRate(features.length, passedFeatures);
+
+        const runStart = data.start_timestamp ? new Date(data.start_timestamp) : new Date(0); // Use epoch if no start time found
+        const runEnd = data.end_timestamp ? new Date(data.end_timestamp) : new Date(runStart.getTime() + allScenarios.reduce((max, s) => Math.max(max, computeScenarioDuration(s)), 0));
+        const runDuration = runEnd - runStart;
+
+        return {
+            runStart, runEnd, runDuration,
+            allScenariosCount, passedScenarios, failedScenarios,
+            features, passedFeatures,
+            scenarioPassRate, featurePassRate
+        };
+    }
+
+    function groupFailuresByReason(scenarios) {
+        const grouped = {};
+        const failedScenarios = scenarios.filter(s => scenarioStatus(s) === 'failed');
+
+        for (const s of failedScenarios) {
+            const reason = getFailureReason(s);
+            if (!grouped[reason]) {
+                grouped[reason] = [];
+            }
+            grouped[reason].push(s);
+        }
+        return grouped;
+    }
+
+    function renderScenarioOrFailureList(scenarios, failedScenariosCount) {
+        let html = '';
+        if (currentView === 'scenarios') {
+            html += `<h4>Scenario Breakdown</h4><table><thead><tr><th>Scenario</th><th>Feature</th><th>Duration</th></tr></thead><tbody>`;
+            if (scenarios.length === 0) {
+                html += `<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No scenarios found for the selected filters.</td></tr>`;
+            } else {
+                for (const s of scenarios) {
+                    const dur = computeScenarioDuration(s);
+                    const status = scenarioStatus(s);
+                    const encodedScenario = JSON.stringify(s).replace(/"/g, '&quot;');
+                    html += `<tr class="${status}"><td class="nameCell" data-scenario="${encodedScenario}">${s.name}</td><td>${s.featureName}</td><td>${msToMinSec(dur)}</td></tr>`;
+                }
+            }
+            html += `</tbody></table>`;
+        } else {
+            const groupedFailures = groupFailuresByReason(scenarios);
+            html += `<h4>Grouped Failures</h4>`;
+            const reasons = Object.keys(groupedFailures);
+
+            if (reasons.length === 0 && failedScenariosCount === 0) {
+                 html += `<p style="color: var(--text-secondary);">No failures found for the selected filters. 🎉</p>`;
+            } else {
+                for (const reason of reasons) {
+                    html += `<div class="failure-group"><h5><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> ${reason} (${groupedFailures[reason].length} cases)</h5><ul>`;
+                    for (const s of groupedFailures[reason]) {
+                        const encodedScenario = JSON.stringify(s).replace(/"/g, '&quot;');
+                        html += `<li class="failed"><span class="nameCell" data-scenario="${encodedScenario}">${s.name}</span></li>`;
+                    }
+                    html += `</ul></div>`;
+                }
+            }
+        }
+        return html;
+    }
+
+
+    function renderDashboard(data) {
+        if (!data) {
+            hideLoading();
+            return;
+        }
+
+        const filteredScenarios = getFilteredScenarios(data);
+        currentScenarios = filteredScenarios;
+
+        const allScenariosForSummary = flattenFeatures(data);
+        const summary = getRunSummaryData(allScenariosForSummary, data); // Use ALL scenarios for summary counts/rates
+
+        renderStatusChart(allScenariosForSummary);
+        renderFeatureChart(allScenariosForSummary);
+        renderTrendChart();
+
+        let html = `
+            <h3>Test Run Details</h3>
+            <p><strong><i class="fas fa-calendar-alt" aria-hidden="true"></i> Date:</strong> ${summary.runStart.toLocaleString()}</p>
+            <p><strong><i class="fas fa-clock" aria-hidden="true"></i> Duration:</strong> ${msToMinSec(summary.runDuration)}</p>
+            <p><strong><i class="fas fa-check-circle" aria-hidden="true"></i> Summary:</strong>
+                Total Scenarios: ${summary.allScenariosCount}
+                <span style="color:${getCssVar('--pass-color')};">(${summary.scenarioPassRate}% Passed)</span><br>
+                Total Features: ${summary.features.length}
+                <span style="color:${getCssVar('--pass-color')};">(${summary.featurePassRate}% Passed)</span>
+            </p>
+            <div class="toggle-view">
+                View:
+                <button id="viewScenariosBtn" class="${currentView === 'scenarios' ? 'active' : ''}"><i class="fas fa-list" aria-hidden="true"></i> Scenarios</button>
+                <button id="viewFailuresBtn" class="${currentView === 'failures' ? 'active' : ''}"><i class="fas fa-bug" aria-hidden="true"></i> Failures (${summary.failedScenarios})</button>
+            </div>
+        `;
+
+        html += `<div class="matrix-toggle">
+            <i class="fas fa-th" aria-hidden="true"></i> View Matrix:
+            <button id="matrixScenariosBtn" class="matrix-toggle-btn ${currentMatrixMode === 'scenarios' ? 'active' : ''}">Scenarios</button>
+            <button id="matrixFeaturesBtn" class="matrix-toggle-btn ${currentMatrixMode === 'features' ? 'active' : ''}">Features</button>
+        </div>
+        <figure id="matrix" class="matrix-table-container"></figure>`;
+
+        html += renderScenarioOrFailureList(filteredScenarios, summary.failedScenarios);
+
+        detailsContainer.innerHTML = html;
+        hideLoading();
+
+        // Attach event listeners
+        document.getElementById('viewScenariosBtn').onclick = () => { currentView = 'scenarios'; renderDashboard(data); };
+        document.getElementById('viewFailuresBtn').onclick = () => { currentView = 'failures'; renderDashboard(data); };
+        document.getElementById('matrixScenariosBtn').onclick = () => { currentMatrixMode = 'scenarios'; renderMatrix(); };
+        document.getElementById('matrixFeaturesBtn').onclick = () => { currentMatrixMode = 'features'; renderMatrix(); };
+
+        document.querySelectorAll('#details .nameCell').forEach((cell) => {
+            cell.onclick = () => {
+                const scenario = JSON.parse(cell.dataset.scenario.replace(/&quot;/g, '"'));
+                const status = scenarioStatus(scenario);
+                const scenarioId = btoa(unescape(encodeURIComponent(scenario.name + scenario.start_timestamp))).replace(/=/g, '');
+                const existingDetails = document.getElementById(`details-${scenarioId}`);
+
+                // Remove all other expanded details rows
+                document.querySelectorAll('.details-row').forEach(row => {
+                    if (row.id !== `details-${scenarioId}`) {
+                        row.remove();
+                    }
+                });
+
+                if (existingDetails) {
+                    existingDetails.remove();
+                } else {
+                    const parentRow = cell.closest('tr');
+                    const parentLi = cell.closest('li');
+                    const detailsContent = renderScenarioDetails(scenario);
+
+                    if (parentRow) {
+                        const newElement = document.createElement('tr');
+                        newElement.id = `details-${scenarioId}`;
+                        newElement.classList.add('details-row', status);
+                        newElement.innerHTML = `<td colspan="3">` + detailsContent + `</td>`;
+                        parentRow.after(newElement);
+                    } else if (parentLi) {
+                         const detailsDiv = document.createElement('div');
+                         detailsDiv.classList.add('details-row', status);
+                         detailsDiv.id = `details-${scenarioId}`;
+                         detailsDiv.innerHTML = detailsContent;
+                         parentLi.after(detailsDiv);
+                    }
+                }
+            };
+        });
+
+        renderMatrix();
+    }
+
+    function renderDataTable(step) {
+        if (!step.arguments || !step.arguments.length) {
+            return '';
+        }
+
+        const dataTable = step.arguments.find(arg => arg.rows);
+        if (!dataTable || !dataTable.rows || dataTable.rows.length === 0) {
+            return '';
+        }
+
+        let html = '<table class="step-table"><tbody>';
+        for (const row of dataTable.rows) {
+            html += '<tr>';
+            for (const cell of row.cells) {
+                 html += `<td>${cell}</td>`;
+            }
+            html += '</tr>';
+        }
+        html += '</tbody></table>';
+        return html;
+    }
+
+    function renderScenarioDetails(scenario) {
+        let html = `<h5>Scenario: ${scenario.name}</h5><ul class="step-list">`;
+
+        for (const step of (scenario.steps || [])) {
+            const status = step.result?.status || 'skipped';
+            const statusText = status.charAt(0).toUpperCase() + status.slice(1);
+
+            let color;
+            if (status === 'passed') {
+                color = getCssVar('--pass-color');
+            } else if (status === 'failed') {
+                color = getCssVar('--fail-color');
+            } else {
+                color = getCssVar('--text-secondary');
+            }
+
+            html += '<li>';
+            html += `<span class="step-status" style="color:${color};">${statusText}:</span>`;
+            html += `${step.keyword} ${step.name}`;
+
+            if (step.result?.error_message) {
+                 html += `<pre style="color:${getCssVar('--fail-color')};">${step.result.error_message}</pre>`;
+            }
+
+            html += renderDataTable(step);
+            html += '</li>';
+        }
+        html += '</ul>';
+        return html;
+    }
+
+    function renderStatusChart(allScenarios) {
+        const passedScenarios = allScenarios.filter(s => scenarioStatus(s) === 'passed').length;
+        const failedScenarios = allScenarios.length - passedScenarios;
+
+        if (statusChart) statusChart.destroy();
+        statusChart = new Chart(document.getElementById('statusChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Passed', 'Failed'],
+                datasets: [{
+                    data: [passedScenarios, failedScenarios],
+                    backgroundColor: [getCssVar('--pass-color'), getCssVar('--fail-color')],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: getCssVar('--text-primary')
+                        }
+                    },
+                    datalabels: {
+                        formatter: (value, context) => {
+                            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            if (total === 0) return '';
+                            const percentage = Math.round((value / total) * 100);
+                            return percentage > 0 ? `${percentage}%` : '';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        anchor: 'center',
+                        align: 'center'
+                    }
+                }
+            }
+        });
+    }
+
+    function renderFeatureChart(scenarios) {
+        const features = {};
+        const UNKNOWN_FEATURE = 'unknown';
+
+        for (const s of scenarios) {
+            const fid = s.featureId || UNKNOWN_FEATURE;
+            if (!features[fid]) {
+                features[fid] = { passed: 0, failed: 0, name: s.featureName || fid };
+            }
+            if (scenarioStatus(s) === 'passed') {
+                features[fid].passed++;
+            } else {
+                features[fid].failed++;
+            }
+        }
+        const labels = Object.values(features).map(f => f.name);
+        const passed = Object.values(features).map(f => f.passed);
+        const failed = Object.values(features).map(f => f.failed);
+
+        if (featureChart) featureChart.destroy();
+        featureChart = new Chart(document.getElementById('featureChart').getContext('2d'), {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Passed', data: passed, backgroundColor: getCssVar('--pass-color') }, { label: 'Failed', data: failed, backgroundColor: getCssVar('--fail-color') }] },
+            options: {
+                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', labels: { color: getCssVar('--text-primary') } } },
+                scales: {
+                    x: { stacked: true, ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } },
+                    y: { stacked: true, ticks: { color: getCssVar('--text-secondary') }, grid: { color: 'rgba(0,0,0,0)' } }
+                }
+            }
+        });
+    }
+
+    async function renderTrendChart() {
+        const limited = allRunEntries.slice(0, 30).filter(entry => entry.data).reverse();
+        const labels = limited.map(e => e.name.replace('.json', ''));
+        const passRates = [];
+
+        for (const entry of limited) {
+            const sc = flattenFeatures(entry.data);
+            if (!sc || sc.length === 0) {
+                passRates.push(null);
+                continue;
+            }
+            const passed = sc.filter(s => scenarioStatus(s) === 'passed').length;
+            passRates.push(Math.round(passed / sc.length * 100));
+        }
+
+        if (trendChart) trendChart.destroy();
+        trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+            type: 'line', data: { labels, datasets: [{ label: 'Pass %', data: passRates, borderColor: getCssVar('--info-color'), fill: false, tension: 0.2 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    y: { min: 0, max: 100, ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } },
+                    x: { ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } }
+                },
+                plugins: { legend: { labels: { color: getCssVar('--text-primary') } } }
+            }
+        });
+    }
+
+    /**
+     * Calculates the matrix cell status for a given item (scenario or feature) across a single run.
+     * Reduces the cognitive complexity of the renderMatrix function.
+     * @param {string} item - The name of the scenario or feature.
+     * @param {Array<Object>} runScenarios - All scenarios for a single run.
+     * @param {string} mode - 'scenarios' or 'features'.
+     * @returns {string} 'green', 'red', or 'grey'.
+     */
+    function calculateMatrixStatus(item, runScenarios, mode) {
+        let matches = [];
+        if (mode === 'scenarios') {
+            matches = runScenarios.filter(s => s.name === item);
+        } else { // 'features'
+            matches = runScenarios.filter(s => s.featureName === item);
+        }
+
+        if (matches.length === 0) {
+            return 'grey';
+        }
+
+        // If any matching scenario failed, the overall status is 'red'.
+        const failed = matches.some(s => scenarioStatus(s) === 'failed');
+
+        // Simple conditional assignment (not a nested ternary)
+        if (failed) {
+            return 'red';
+        }
+        return 'green';
+    }
+
+    async function renderMatrix() {
+        const matrixEl = document.getElementById('matrix');
+        if (!matrixEl) return;
+
+        const limited = allRunEntries.slice(0, 5).filter(entry => entry.data);
+
+        let items = [];
+        if (currentMatrixMode === 'scenarios') {
+            // Use currentScenarios (filtered scenarios) to determine the rows
+            items = [...new Set(currentScenarios.map(s => s.name))];
+        } else {
+            items = [...new Set(currentScenarios.map(s => s.featureName))].filter(n => n);
+        }
+
+        // --- Build Header ---
+        let html = `<table><caption>Test Matrix</caption><thead><tr><th>${currentMatrixMode === 'scenarios' ? 'Scenario' : 'Feature'}</th>`;
+        html += limited.map(e => `<th>${e.name.replace('.json', '')}</th>`).join('');
+        html += '</tr></thead><tbody>';
+
+        // --- Build Body ---
+        for (const item of items) {
+            html += `<tr><td>${item}</td>`;
+
+            for (const runEntry of limited) {
+                const runScenarios = flattenFeatures(runEntry.data);
+                const status = calculateMatrixStatus(item, runScenarios, currentMatrixMode);
+
+                // Concatenation used instead of nested template literal
+                html += '<td><span class="block ' + status + '"></span></td>';
+            }
+            html += `</tr>`;
+        }
+
+        html += `</tbody></table>`;
+        matrixEl.innerHTML = html;
+
+        document.querySelectorAll('.matrix-toggle-btn').forEach(btn => btn.classList.remove('active'));
+        // Use a simple conditional for the button ID string generation
+        const btnId = `matrix${currentMatrixMode.charAt(0).toUpperCase() + currentMatrixMode.slice(1)}Btn`;
+        document.getElementById(btnId).classList.add('active');
+    }
+
+    loadRunListing();
+</script>
+</body>
+</html>
