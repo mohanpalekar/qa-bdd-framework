@@ -20,7 +20,9 @@ on:
         default: 'runner-1'
 
 permissions:
-  contents: write  # Required for GitHub Pages deployment
+  contents: read
+  pages: write       # Grants the action permission to create a Pages deployment
+  id-token: write    # Grants the action permission to fetch the necessary OIDC token
 
 jobs:
   tests:
@@ -43,51 +45,73 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # ⚠️ CHANGES START HERE
       - name: Build & Test
         shell: powershell
+        env:
+          CUCUMBER_TAGS: ${{ inputs.tags }}
+          THREAD_COUNT: ${{ inputs.threadCount }}
+          PARALLEL_MODE: ${{ inputs.parallel }}
+          TEST_ENV: ${{ inputs.env }}
         run: |
           echo "Running tests with:"
-          echo "Tags: ${{ inputs.tags }}"
-          echo "Thread count: ${{ inputs.threadCount }}"
-          echo "Parallel: ${{ inputs.parallel }}"
-          echo "Env: ${{ inputs.env }}"
+          echo "Tags: ${{ env.CUCUMBER_TAGS }}"
+          echo "Thread count: ${{ env.THREAD_COUNT }}"
+          echo "Parallel: ${{ env.PARALLEL_MODE }}"
+          echo "Env: ${{ env.TEST_ENV }}"
+          # The 'mvn' command that runs the tests and generates the report
+          # It is assumed that this command places the 'index.html' and 'json-files'
+          # into a directory named 'dashboard' at the root of the repository.
           mvn -B clean verify `
-            "-Dcucumber.filter.tags=${{ inputs.tags }}" `
-            "-DthreadCount=${{ inputs.threadCount }}" `
-            "-Dparallel=${{ inputs.parallel }}" `
-            "-Denv=${{ inputs.env }}"
+            "-Dcucumber.filter.tags=${{ env.CUCUMBER_TAGS }}" `
+            "-DthreadCount=${{ env.THREAD_COUNT }}" `
+            "-Dparallel=${{ env.PARALLEL_MODE }}" `
+            "-Denv=${{ env.TEST_ENV }}"
 
-      - name: Upload Extent Spark Report
+      # Upload the entire 'dashboard' folder as an artifact.
+      - name: Upload Dynamic Report
         uses: actions/upload-artifact@v4
         with:
-          name: test-report
-          path: target/ExtentReports
+          name: dynamic-report
+          path: dashboard
 
   publish:
+    # Set the environment and URL for tracking the deployment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
     needs: tests
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Download Extent Spark Report
+    # Required to ensure only one deployment is running at a time
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+
+    steps:
+      # 1. Download the report artifact from the 'tests' job
+      - name: Download Dynamic Report
         uses: actions/download-artifact@v4
         with:
-          name: test-report
-          path: report
+          name: dynamic-report
+          path: dynamic-report
 
-      - name: Rename SparkReport.html to index.html
-        shell: powershell
-        run: |
-          if (Test-Path "report\\SparkReport.html") {
-          Rename-Item "report\\SparkReport.html" "report\\index.html"
-          }
+      # 2. Configure the Pages environment
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      - name: Deploy Spark Report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # 3. Upload the report as the deployable artifact
+      - name: Upload Report Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: report
+          # The path must point to the folder containing index.html
+          path: './dynamic-report'
+
+      # 4. Deploy the artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   sonar:
     runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
@@ -120,5 +144,4 @@ jobs:
             "-Dsonar.organization=mohanpalekar" `
             "-Dsonar.projectKey=qa-bdd-framework" `
             "-Dsonar.host.url=https://sonarcloud.io" `
-            "-Dsonar.login=${{ env.SONAR_TOKEN }}" `
             "-Dsonar.java.binaries=target/classes"
