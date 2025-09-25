@@ -45,7 +45,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # ⚠️ CHANGES START HERE
       - name: Build & Test
         shell: powershell
         env:
@@ -76,6 +75,35 @@ jobs:
           path: dashboard
 
   publish:
+    if: github.ref == 'refs/heads/gh-pages'  # Only run on the gh-pages branch
+    runs-on: ${{ fromJSON(inputs.runnerLabel != '' && format('["self-hosted", "{0}"]', inputs.runnerLabel) || '["self-hosted"]') }}
+    needs: tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Extent Spark Report
+        uses: actions/download-artifact@v4
+        with:
+          name: test-report
+          path: report
+
+      - name: Rename SparkReport.html to index.html
+        shell: powershell
+        run: |
+          if (Test-Path "report\\SparkReport.html") {
+          Rename-Item "report\\SparkReport.html" "report\\index.html"
+          }
+
+      - name: Deploy Spark Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: report
+
+  # A separate job for deploying the dynamic dashboard.
+  publish-dashboard:
+    if: github.ref == 'refs/heads/gh-pages'  # Only run on the gh-pages branch
     # Set the environment and URL for tracking the deployment
     environment:
       name: github-pages
@@ -90,7 +118,7 @@ jobs:
       cancel-in-progress: true
 
     steps:
-      # 1. Download the report artifact from the 'tests' job
+      # 1. Download the dynamic dashboard report artifact
       - name: Download Dynamic Report
         uses: actions/download-artifact@v4
         with:
