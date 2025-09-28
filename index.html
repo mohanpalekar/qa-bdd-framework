@@ -1,1019 +1,1029 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Automation Execution Report</title>
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
-<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
-<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/css/spark-style.css" rel="stylesheet" />
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
-<style type="text/css">
-.test-name {
-font-size: 15px !important;
-color: #00bcd4 !important;
-}
-</style></head><body class="spa bdd-report standard">
-  <div class="app">
-    <div class="layout">
-<div class="header navbar">
-<div class="vheader">
-<div class="nav-logo">
-<a href="#">
-<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
-</a>
-</div>
-<ul class="nav-left">
-<li class="search-box">
-<a class="search-toggle" href="#">
-<i class="search-icon fa fa-search"></i>
-<i class="search-icon-close fa fa-close"></i>
-</a>
-</li>
-<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
-</ul>
-<ul class="nav-right">
-<li class="m-r-10">
-<a href="#"><span class="badge badge-primary">My Automation Suite</span></a>
-</li>
-<li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Sep 27, 2025 07:19:10 PM</span></a>
-</li>
-</ul>
-</div>
-</div><div class="side-nav">
-<div class="side-nav-inner">
-<ul class="side-nav-menu">
-<li class="nav-item dropdown" onclick="toggleView('test-view')">
-<a id="nav-test" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-list"></i></span>
-</a>
-</li>
-<li class="nav-item dropdown" onclick="toggleView('category-view')">
-<a id="nav-category" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-tag"></i></span>
-</a>
-</li>
-<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
-<a id="nav-dashboard" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-bar-chart"></i></span>
-</a>
-</li>
-</ul>
-</div>
-</div>      <div class="vcontainer">
-        <div class="main-content">
-<div class="test-wrapper row view test-view">
-  <div class="test-list">
-    <div class="test-list-tools">
-<ul class="tools pull-left">
-<li><a href="#"><span class="font-size-14">Tests</span></a></li>
-</ul>
-<ul class="tools text-right">
-<li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
-<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
-<div class="dropdown-divider"></div>
-<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
-</ul>
-</li>
-<li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
-<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">@addObjectsAPI</a><a class="dropdown-item" href="#">@getObjectAPI</a><a class="dropdown-item" href="#">@createUser</a><a class="dropdown-item" href="#">@api</a><a class="dropdown-item" href="#">@ui</a><a class="dropdown-item" href="#">@ui1</a><a class="dropdown-item" href="#">@data</a>
-</ul>
-</li>
-</ul>
-</div>    <div class="test-list-wrapper scrollable">
-      <ul class="test-list-item">
-        <li class="test-item"  status="pass" test-id="1"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">Get Objects API</p>
-            <p class="text-sm">
-              <span>7:19:13 PM</span> / <span>00:00:12:615</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">Get Objects API</h5>
-<span class='badge badge-success'>09.27.2025 7:19:13 PM</span>
-<span class='badge badge-danger'>09.27.2025 7:19:26 PM</span>
-<span class='badge badge-default'>00:00:12:615</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Get objects with dynamically generated IDs</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "get_objects_by_ids.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>query:id</td><td>${randomId1=number:3}</td></tr><tr><td>query:id</td><td>${randomId2=number:3}</td></tr><tr><td>query:id</td><td>${myId=number:1}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>[0].id</td><td>${context:myId}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Test Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            /* Dark Theme Colors */
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #333;
+            --pass-color: #4CAF50;
+            --fail-color: #F44336;
+            --info-color: #2196F3;
+        }
+
+        .light-theme {
+            /* Enriched Light Theme Colors */
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --text-primary: #3c4043;
+            --text-secondary: #5f6368;
+            --border-color: #e0e0e0;
+            --pass-color: #38a85c;
+            --fail-color: #ea4335;
+            --info-color: #1a73e8;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h4 {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        main.dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header.page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        header.page-header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav.controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        select, input, button {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .light-theme select,
+        .light-theme input,
+        .light-theme button {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        select:focus, input:focus, button:focus {
+            outline: none;
+            border-color: var(--info-color);
+        }
+
+        button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.matrix-toggle-btn {
+            background: var(--bg-secondary);
+        }
+
+        button.matrix-toggle-btn.active {
+            background-color: var(--info-color);
+            border-color: var(--info-color);
+        }
+
+        .light-theme button.matrix-toggle-btn.active {
+            color: #fff;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            flex: 1;
+            min-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+            position: relative;
+        }
+
+        .light-theme .card {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 10px rgba(33, 150, 243, 0.5);
+        }
+
+        .light-theme .card:hover {
+            transform: none;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            margin-top: 15px;
+            background-color: var(--bg-secondary);
+            transition: background-color 0.3s;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .light-theme tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        tr.failed td {
+            color: var(--fail-color);
+        }
+
+        tr.passed td {
+            color: var(--pass-color);
+        }
+
+        .nameCell {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .details-row {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--info-color);
+            padding: 15px 10px;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: background-color 0.3s, border-left-color 0.3s;
+        }
+
+        .light-theme .details-row {
+            background: #fafafa;
+            border-left: 4px solid var(--info-color);
+        }
+
+        .details-row.failed {
+            background: rgba(244, 67, 54, 0.1);
+            border-left-color: var(--fail-color);
+        }
+
+        .light-theme .details-row.failed {
+            background: rgba(234, 67, 53, 0.1);
+            border-left-color: var(--fail-color);
+        }
+
+        .details-row .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-row .step-list li {
+            margin-bottom: 5px;
+        }
+
+        .details-row .step-list .step-status {
+            font-weight: bold;
+            display: inline-block;
+            width: 70px;
+        }
+
+        .step-table {
+            border-collapse: collapse;
+            margin-top: 10px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .step-table th,
+        .step-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+            background: var(--bg-secondary);
+        }
+
+        .step-table th {
+            font-weight: normal;
+            color: var(--text-secondary);
+        }
+
+        .matrix-table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .matrix-table-container table td {
+            width: 20px;
+            text-align: center;
+        }
+
+        .matrix-table-container .block {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        .matrix-table-container .green { background: var(--pass-color); }
+        .matrix-table-container .red { background: var(--fail-color); }
+        .matrix-table-container .grey { background: var(--border-color); }
+
+        .matrix-toggle {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .matrix-toggle button {
+            border: 1px solid var(--border-color);
+        }
+
+        .toggle-view {
+            margin-top: 10px;
+        }
+
+        .toggle-view button {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
+            padding: 5px 10px;
+            margin-left: 5px;
+        }
+
+        .toggle-view button.active {
+            background-color: var(--info-color);
+            border-color: var(--info-color);
+            color: #fff;
+        }
+
+        #loading-indicator {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .feature-filter-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .feature-filter-container input {
+            padding-right: 30px;
+        }
+
+        .feature-filter-container .dropdown-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<main class="dashboard-container">
+    <header class="page-header">
+        <h1><i class="fas fa-tachometer-alt" aria-hidden="true"></i> QA Test Dashboard</h1>
+        <button id="themeToggleBtn" aria-label="Toggle between light and dark themes"><i class="fas fa-sun" aria-hidden="true"></i> Light Mode</button>
+    </header>
+
+    <nav class="controls">
+        <label for="runSelect"><i class="fas fa-play-circle" aria-hidden="true"></i> Run:</label>
+        <select id="runSelect" aria-label="Select Test Run"></select>
+
+        <label for="statusFilter"><i class="fas fa-filter" aria-hidden="true"></i> Status:</label>
+        <select id="statusFilter" aria-label="Filter by Test Status">
+            <option value="all">All</option>
+            <option value="passed">Passed</option>
+            <option value="failed">Failed</option>
+        </select>
+
+        <label for="featureFilterInput"><i class="fas fa-search" aria-hidden="true"></i> Feature:</label>
+        <div class="feature-filter-container">
+            <input type="text" id="featureFilterInput" placeholder="Filter by feature name" list="featureList" aria-label="Filter by feature name">
+            <i class="fas fa-caret-down dropdown-icon" aria-hidden="true"></i>
+            <datalist id="featureList"></datalist>
         </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="3"><span class="badge log pass-bg mr-2">Pass</span>Get multiple objects by IDs</div>
-      </div>
+        <button id="refreshBtn"><i class="fas fa-sync-alt" aria-hidden="true"></i> Refresh</button>
+    </nav>
+
+    <div class="row">
+        <section class="card" style="width: 250px;">
+            <h4>Status Summary</h4>
+            <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </section>
+        <section class="card">
+            <h4>Pass % Trend (Last 30 Runs)</h4>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </section>
+        <section class="card">
+            <h4>Feature Progress</h4>
+            <div class="chart-container">
+                <canvas id="featureChart"></canvas>
+            </div>
+        </section>
     </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "get_objects_by_ids.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>query:id</td><td>3</td></tr><tr><td>query:id</td><td>5</td></tr><tr><td>query:id</td><td>${myId=number:2}</td></tr><tr><td>wait</td><td>10</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="7"><span class="badge log pass-bg mr-2">Pass</span>GET /objects returns a list of valid objects</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithoutOverrides(java.lang.String)">
-                <span>When I call api spec "get_objects.yaml" without overrides</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseShouldContainAListOfObjects()">
-                <span>And response should contain a list of objects</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>[0].id</td><td>1</td></tr><tr><td>[0].name</td><td>Google Pixel 6 Pro</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="4"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">Add Objects API</p>
-            <p class="text-sm">
-              <span>7:19:14 PM</span> / <span>00:00:08:006</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">Add Objects API</h5>
-<span class='badge badge-success'>09.27.2025 7:19:14 PM</span>
-<span class='badge badge-danger'>09.27.2025 7:19:22 PM</span>
-<span class='badge badge-default'>00:00:08:006</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=4</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="5"><span class="badge log pass-bg mr-2">Pass</span>Add Objects API - Positive - 1</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "add_objects.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>$.name</td><td>${name=firstname}</td></tr><tr><td>$.data.year</td><td>${year=number:4}</td></tr><tr><td>$.data.price</td><td>${price=float:3:2}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>name</td><td>${context:name}</td></tr><tr><td>data.year</td><td>${context:year}</td></tr><tr><td>data.price</td><td>${context:price}</td></tr><tr><td>id</td><td>__notempty__</td></tr><tr><td>createdAt</td><td>__exists__</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="6"><span class="badge log pass-bg mr-2">Pass</span>Add Objects API - Positive</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "add_objects.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>$.name</td><td>${name=firstname}</td></tr><tr><td>$.data.year</td><td>${year=number:4}</td></tr><tr><td>$.data.price</td><td>${price=float:3:2}</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 200</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>name</td><td>${context:name}</td></tr><tr><td>data.year</td><td>${context:year}</td></tr><tr><td>data.price</td><td>${context:price}</td></tr><tr><td>id</td><td>__notempty__</td></tr><tr><td>createdAt</td><td>__exists__</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="28"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">DemoQA UI interactions</p>
-            <p class="text-sm">
-              <span>7:19:21 PM</span> / <span>00:00:22:224</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">DemoQA UI interactions</h5>
-<span class='badge badge-success'>09.27.2025 7:19:21 PM</span>
-<span class='badge badge-danger'>09.27.2025 7:19:43 PM</span>
-<span class='badge badge-default'>00:00:22:224</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=28</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="29"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Success</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.launchBrowser(java.lang.String)">
-                <span>Given I launch browser "browser"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.navigateToUrl(java.lang.String)">
-                <span>Given I navigate to URL "sit.url"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.performUIActions(io.cucumber.datatable.DataTable)">
-                <span>When I perform UI actions</span>
-      <div><table class='markup-table table '><tr><td>operation</td><td>locatorKey</td><td>value</td></tr><tr><td>type</td><td>login.username</td><td>Admin</td></tr><tr><td>type</td><td>login.password</td><td>admin123</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>verify text</td><td>home.dashboard</td><td>Dashboard</td></tr><tr><td>verify text</td><td>home.employee.distribution.report</td><td>Employee Distribution by Location</td></tr><tr><td>click</td><td>home.user.menu</td><td></td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>tab</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>verify text</td><td>login.page.text</td><td>Login</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="33"><span class="badge log pass-bg mr-2">Pass</span>Verify Login Failure</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.launchBrowser(java.lang.String)">
-                <span>Given I launch browser "browser"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.navigateToUrl(java.lang.String)">
-                <span>Given I navigate to URL "sit.url"</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.UiSteps.performUIActions(io.cucumber.datatable.DataTable)">
-                <span>When I perform UI actions</span>
-      <div><table class='markup-table table '><tr><td>operation</td><td>locatorKey</td><td>value</td></tr><tr><td>type</td><td>login.username</td><td>${userEmail=email}</td></tr><tr><td>type</td><td>login.password</td><td>${number:5}</td></tr><tr><td>keyboard</td><td></td><td>enter</td></tr><tr><td>wait</td><td></td><td>2</td></tr><tr><td>verify text</td><td>login.failed</td><td>Invalid credentials</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-        <li class="test-item"  status="pass" test-id="38"
-          author=""
-          tag=""
-          device="">
-          <div class="test-detail">
-            <p class="name">User API</p>
-            <p class="text-sm">
-              <span>7:19:22 PM</span> / <span>00:00:01:176</span>
-              <span class="badge pass-bg log float-right">Pass</span>
-            </p>
-          </div>
-          <div class="test-contents d-none">
-<div class="detail-head">
-<div class="p-v-10">
-<div class="info">
-<h5 class="test-status text-pass">User API</h5>
-<span class='badge badge-success'>09.27.2025 7:19:22 PM</span>
-<span class='badge badge-danger'>09.27.2025 7:19:23 PM</span>
-<span class='badge badge-default'>00:00:01:176</span>
-&middot; <span class='uri-anchor badge badge-default'>#test-id=38</span>
-<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
-<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
-<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
-</div>
-<div class="m-t-10 m-l-5"></div>
-</div>
-</div>
-<div class="accordion mt-4">
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="39"><span class="badge log pass-bg mr-2">Pass</span>Create User API - Positive Scenario</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="com.qa.bdd.steps.ApiSteps.iCallApiWithOverrides(java.lang.String,io.cucumber.datatable.DataTable)">
-                <span>When I call api spec "user-api.yaml" with overrides</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>path:tenantId</td><td>12345</td></tr><tr><td>query:verbose</td><td>true</td></tr><tr><td>$.name</td><td>John Doe</td></tr><tr><td>$.email</td><td>john@example.com</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseStatusShouldBe(int)">
-                <span>Then response status should be 404</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="com.qa.bdd.steps.ValidateSteps.responseJsonShouldMatch(io.cucumber.datatable.DataTable)">
-                <span>And response json should match</span>
-      <div><table class='markup-table table '><tr><td>key</td><td>value</td></tr><tr><td>status</td><td>404</td></tr><tr><td>error</td><td>Not Found</td></tr></table>
-      </div>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-</div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-<div class="test-content scrollable">
-<div class="test-content-tools">
-<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
-</div>
-<div class="test-content-detail"><div class="detail-body"></div></div>
-</div></div>
-<div class="test-wrapper row view category-view attributes-view">
-<div class="test-list">
-<div class="test-list-tools">
-<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">7</span></a></li></ul>
-</div>
-<div class="test-list-wrapper scrollable">
-<ul class="test-list-item">
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>2</span>
-</span>
-<p class="name">@addObjectsAPI</p>
-<p class="duration text-sm">2 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@addObjectsAPI</h4>
-<span status="pass" class='badge log pass-bg'>2 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='4' id='5'>Add Objects API - Positive - 1</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive - 1</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='4' id='6'>Add Objects API - Positive</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>3</span>
-</span>
-<p class="name">@getObjectAPI</p>
-<p class="duration text-sm">3 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@getObjectAPI</h4>
-<span status="pass" class='badge log pass-bg'>3 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:13 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Get objects with dynamically generated IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get objects with dynamically generated IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:13 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='3'>Get multiple objects by IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get multiple objects by IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='7'>GET /objects returns a list of valid objects</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.GET /objects returns a list of valid objects</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>1</span>
-</span>
-<p class="name">@createUser</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@createUser</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:22 PM</td>
-<td>
-<a href="#" class="linked" test-id='38' id='39'>Create User API - Positive Scenario</a>
-<div class="">
-<span class="badge badge-default">User API.Create User API - Positive Scenario</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>6</span>
-</span>
-<p class="name">@api</p>
-<p class="duration text-sm">6 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@api</h4>
-<span status="pass" class='badge log pass-bg'>6 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:13 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Get objects with dynamically generated IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get objects with dynamically generated IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:13 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='3'>Get multiple objects by IDs</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.Get multiple objects by IDs</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='4' id='5'>Add Objects API - Positive - 1</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive - 1</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='4' id='6'>Add Objects API - Positive</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='7'>GET /objects returns a list of valid objects</a>
-<div class="">
-<span class="badge badge-default">Get Objects API.GET /objects returns a list of valid objects</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:22 PM</td>
-<td>
-<a href="#" class="linked" test-id='38' id='39'>Create User API - Positive Scenario</a>
-<div class="">
-<span class="badge badge-default">User API.Create User API - Positive Scenario</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>2</span>
-</span>
-<p class="name">@ui</p>
-<p class="duration text-sm">2 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@ui</h4>
-<span status="pass" class='badge log pass-bg'>2 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:21 PM</td>
-<td>
-<a href="#" class="linked" test-id='28' id='29'>Verify Login Success</a>
-<div class="">
-<span class="badge badge-default">DemoQA UI interactions.Verify Login Success</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:21 PM</td>
-<td>
-<a href="#" class="linked" test-id='28' id='33'>Verify Login Failure</a>
-<div class="">
-<span class="badge badge-default">DemoQA UI interactions.Verify Login Failure</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>1</span>
-</span>
-<p class="name">@ui1</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@ui1</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:21 PM</td>
-<td>
-<a href="#" class="linked" test-id='28' id='29'>Verify Login Success</a>
-<div class="">
-<span class="badge badge-default">DemoQA UI interactions.Verify Login Success</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>1</span>
-</span>
-<p class="name">@data</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@data</h4>
-<span status="pass" class='badge log pass-bg'>1 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>19:19:14 PM</td>
-<td>
-<a href="#" class="linked" test-id='4' id='6'>Add Objects API - Positive</a>
-<div class="">
-<span class="badge badge-default">Add Objects API.Add Objects API - Positive</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="test-content scrollable">
-<div class="test-content-detail">
-<div class="detail-body"></div>
-</div>
-</div>
-</div><div class="container-fluid p-4 view dashboard-view">
-<div class="row">
-<div class="col-md-3">
-<div class="card"><div class="card-body">
-<p class="m-b-0">Started</p>
-<h3>Sep 27, 2025 07:19:10 PM</h3>
-</div></div>
-</div>
-<div class="col-md-3">
-<div class="card"><div class="card-body">
-<p class="m-b-0">Ended</p>
-<h3>Sep 27, 2025 07:19:44 PM</h3>
-</div></div>
-</div>
-<div class="col-md-3">
-<div class="card"><div class="card-body">
-<p class="m-b-0 text-pass">Features Passed</p>
-<h3>4</h3>
-</div></div>
-</div>
-<div class="col-md-3">
-<div class="card"><div class="card-body">
-<p class="m-b-0 text-fail">Features Failed</p>
-<h3>0</h3>
-</div></div>
-</div>
-</div>
-<div class="row">
-<div class="col-md-4">
-<div class="card">
-<div class="card-header">
-<h6 class="card-title">Features</h6>
-</div>
-<div class="card-body">
-<div class="">
-<canvas id='parent-analysis' width='115' height='90'></canvas>
-</div>
-</div>
-<div class="card-footer">
-<div><small data-tooltip='100%'>
-<b>4</b> features passed
-</small>
-</div>
-<div>
-<small data-tooltip='0%'><b>0</b> features failed,
-<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
-</small>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card">
-<div class="card-header">
-<h6 class="card-title">Scenarios</h6>
-</div>
-<div class="card-body">
-<div class="">
-<canvas id='child-analysis' width='115' height='90'></canvas>
-</div>
-</div>
-<div class="card-footer">
-<div><small data-tooltip='100%'><b>8</b> scenarios passed</small></div>
-<div>
-<small data-tooltip='0%'><b>0</b> scenarios failed,
-<b>0</b> skipped, <b data-tooltip='%'>0</b> others
-</small>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4">
-<div class="card">
-<div class="card-header">
-<h6 class="card-title">Steps</h6>
-</div>
-<div class="card-body">
-<div class="">
-<canvas id='grandchild-analysis' width='115' height='90'></canvas>
-</div>
-</div>
-<div class="card-footer">
-<div><small data-tooltip='100%'><b>24</b> steps passed</small></div>
-<div>
-<small data-tooltip='0%'><b>0</b> steps failed,
-<b>0</b> skipped, <b data-tooltip='%'>0</b> others
-</small>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><div class="col-md-12">
-<div class="card"><div class="card-header"><p>Timeline</p></div>
-<div class="card-body pt-0"><div>
-<canvas id="timeline" height="120"></canvas>
-</div></div>
-</div>
-</div></div>
+
+    <output id="loading-indicator">
+        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Loading...
+    </output>
+
+    <div id="details" class="card" style="display: none;"></div>
+</main>
+
 <script>
-var timeline = {
-"Get Objects API":12.615,"Add Objects API":8.006,"DemoQA UI interactions":22.224,"User API":1.176
-};
+    const manifestPath = 'json-files/index.json';
+    const runSelect = document.getElementById('runSelect');
+    const statusFilter = document.getElementById('statusFilter');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const detailsContainer = document.getElementById('details');
+    const featureFilterInput = document.getElementById('featureFilterInput');
+    const featureList = document.getElementById('featureList');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+    let allRunEntries = [];
+    let currentScenarios = [];
+    let currentView = 'scenarios';
+    let currentRunFeatures = [];
+    let currentMatrixMode = 'scenarios';
+    let statusChart, trendChart, featureChart;
+
+    function getCssVar(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    refreshBtn.onclick = () => loadRunListing();
+    runSelect.onchange = () => loadRun(runSelect.value);
+    statusFilter.onchange = () => renderDashboard(allRunEntries.find(e => e.url === runSelect.value)?.data);
+
+    featureFilterInput.addEventListener('input', () => {
+        renderDashboard(allRunEntries.find(e => e.url === runSelect.value)?.data);
+    });
+
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        const isLightTheme = document.body.classList.contains('light-theme');
+        const icon = isLightTheme ? '<i class="fas fa-moon" aria-hidden="true"></i> Dark Mode' : '<i class="fas fa-sun" aria-hidden="true"></i> Light Mode';
+        const label = isLightTheme ? 'Toggle to dark theme' : 'Toggle to light theme';
+
+        themeToggleBtn.innerHTML = icon;
+        themeToggleBtn.setAttribute('aria-label', label);
+        renderCharts();
+    });
+
+    function renderCharts() {
+        const currentRunUrl = runSelect.value;
+        const currentRunEntry = allRunEntries.find(entry => entry.url === currentRunUrl);
+
+        if (currentRunEntry && currentRunEntry.data) {
+            const allScenarios = flattenFeatures(currentRunEntry.data);
+            renderStatusChart(allScenarios);
+            renderFeatureChart(allScenarios);
+            renderTrendChart();
+        }
+    }
+
+    function populateFeatureList(features) {
+        featureList.innerHTML = '';
+        const uniqueFeatures = [...new Set(features.map(f => f.name))].sort();
+
+        for (const featureName of uniqueFeatures) {
+            const option = document.createElement('option');
+            option.value = featureName;
+            featureList.appendChild(option);
+        }
+    }
+
+    function nsToMs(ns) { return ns ? ns / 1_000_000 : 0; }
+
+    function msToMinSec(ms) {
+        const t = Math.round(ms / 1000);
+        const m = Math.floor(t / 60);
+        const s = t % 60;
+
+        let result = '';
+        if (m > 0) {
+            result += `${m}m `;
+        }
+        result += `${s}s`;
+
+        return result.trim();
+    }
+
+    function computeScenarioDuration(s) {
+        let ns = 0;
+
+        const allStepsAndHooks = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+        for (const item of allStepsAndHooks) {
+             ns += item.result?.duration || 0;
+        }
+        return nsToMs(ns);
+    }
+
+    function scenarioStatus(s) {
+        if (!s || !s.steps || !Array.isArray(s.steps)) {
+            return 'unknown';
+        }
+
+        const allStepsAndHooks = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+
+        if (allStepsAndHooks.some(st => st.result?.status === 'failed')) {
+            return 'failed';
+        }
+
+        return 'passed';
+    }
+
+    function getFailureReason(s) {
+        const allSteps = [...(s.before || []), ...(s.steps || []), ...(s.after || [])];
+        for (const step of allSteps) {
+            if (step.result?.status === 'failed' && step.result?.error_message) {
+                return step.result.error_message.split('\n')[0];
+            }
+        }
+        return 'Unknown Failure';
+    }
+
+    function showLoading() {
+        detailsContainer.style.display = 'none';
+        loadingIndicator.style.display = 'block';
+        loadingIndicator.setAttribute('aria-busy', 'true');
+    }
+
+    function hideLoading() {
+        loadingIndicator.style.display = 'none';
+        detailsContainer.style.display = 'block';
+        loadingIndicator.setAttribute('aria-busy', 'false');
+    }
+
+    async function loadRunListing() {
+        showLoading();
+        try {
+            const r = await fetch(manifestPath, { cache: "no-store" });
+            if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+            const list = await r.json();
+
+            allRunEntries = (list || []).slice().sort((a, b) => b.name.localeCompare(a.name));
+
+            runSelect.innerHTML = '';
+            for (const e of allRunEntries) {
+                const o = document.createElement('option');
+                o.value = e.url;
+                o.textContent = e.name.replace('.json', '');
+                runSelect.appendChild(o);
+            }
+
+            if (allRunEntries.length) {
+                // Fetch all data for trend chart and caching
+                const fetchPromises = allRunEntries.map(e =>
+                    e.data ? Promise.resolve(e.data) : fetch(e.url).then(res => res.json()).catch(() => null)
+                );
+
+                const results = await Promise.all(fetchPromises);
+                results.forEach((data, i) => {
+                    allRunEntries[i].data = data;
+                });
+
+                runSelect.value = allRunEntries[0].url;
+                loadRun(allRunEntries[0].url);
+            } else {
+                hideLoading();
+                detailsContainer.innerHTML = `<p style="color:${getCssVar('--text-secondary')};">No test runs found in the manifest file.</p>`;
+            }
+        } catch (error) {
+            console.error('Error loading run listing:', error);
+            hideLoading();
+            detailsContainer.innerHTML = `<p style="color:${getCssVar('--fail-color')};">Error: Could not load test runs. Check the file path and ensure the JSON files exist.</p>`;
+        }
+    }
+
+    async function loadRun(url) {
+        showLoading();
+        try {
+            let data = allRunEntries.find(entry => entry.url === url)?.data;
+            if (!data) {
+                const r = await fetch(url, { cache: "no-store" });
+                if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+                data = await r.json();
+                const currentRunEntry = allRunEntries.find(entry => entry.url === url);
+                if (currentRunEntry) currentRunEntry.data = data;
+            }
+
+            const allScenarios = flattenFeatures(data);
+
+            const featureNames = [...new Set(allScenarios.map(s => s.featureName || 'unknown'))].sort().map(name => ({name}));
+            populateFeatureList(featureNames);
+
+            renderDashboard(data);
+        } catch (error) {
+            console.error('Error loading run data:', error);
+            hideLoading();
+            detailsContainer.innerHTML = `<p style="color:${getCssVar('--fail-color')};">Error: Could not load data for this run. The file may be missing or corrupt.</p>`;
+        }
+    }
+
+    function flattenFeatures(json) {
+        if (Array.isArray(json)) {
+            return json.flatMap(f => {
+                const fid = f.id || f.name || 'unknown';
+                return (f.elements || []).map(e => ({ ...e, featureId: fid, featureName: f.name }));
+            });
+        }
+        if (json && json.features) {
+            return json.features.flatMap(f => {
+                const fid = f.id || f.name || 'unknown';
+                return (f.elements || []).map(e => ({ ...e, featureId: fid, featureName: f.name }));
+            });
+        }
+        return [];
+    }
+
+    function getFilteredScenarios(data) {
+        let scenarios = flattenFeatures(data);
+
+        const status = statusFilter.value;
+        if (status !== 'all') {
+            scenarios = scenarios.filter(s => scenarioStatus(s) === status);
+        }
+
+        const fVal = featureFilterInput.value.trim().toLowerCase();
+        if (fVal) {
+             scenarios = scenarios.filter(s => (s.featureName || '').toLowerCase().includes(fVal));
+        }
+
+        return scenarios;
+    }
+
+    function calculatePassRate(total, passed) {
+        if (total === 0) {
+            return '0.0';
+        }
+        return (passed / total * 100).toFixed(1);
+    }
+
+    function getRunSummaryData(allScenarios, data) {
+        const allScenariosCount = allScenarios.length;
+        const passedScenarios = allScenarios.filter(s => scenarioStatus(s) === 'passed').length;
+        const failedScenarios = allScenariosCount - passedScenarios;
+
+        const features = [...new Set(allScenarios.map(s => s.featureId))];
+        const passedFeatures = features.filter(fid =>
+            allScenarios.filter(s => s.featureId === fid).every(s => scenarioStatus(s) === 'passed')
+        ).length;
+
+        const scenarioPassRate = calculatePassRate(allScenariosCount, passedScenarios);
+        const featurePassRate = calculatePassRate(features.length, passedFeatures);
+
+        const runStart = data.start_timestamp ? new Date(data.start_timestamp) : new Date(0); // Use epoch if no start time found
+        const runEnd = data.end_timestamp ? new Date(data.end_timestamp) : new Date(runStart.getTime() + allScenarios.reduce((max, s) => Math.max(max, computeScenarioDuration(s)), 0));
+        const runDuration = runEnd - runStart;
+
+        return {
+            runStart, runEnd, runDuration,
+            allScenariosCount, passedScenarios, failedScenarios,
+            features, passedFeatures,
+            scenarioPassRate, featurePassRate
+        };
+    }
+
+    function groupFailuresByReason(scenarios) {
+        const grouped = {};
+        const failedScenarios = scenarios.filter(s => scenarioStatus(s) === 'failed');
+
+        for (const s of failedScenarios) {
+            const reason = getFailureReason(s);
+            if (!grouped[reason]) {
+                grouped[reason] = [];
+            }
+            grouped[reason].push(s);
+        }
+        return grouped;
+    }
+
+    function renderScenarioOrFailureList(scenarios, failedScenariosCount) {
+        let html = '';
+        if (currentView === 'scenarios') {
+            html += `<h4>Scenario Breakdown</h4><table><thead><tr><th>Scenario</th><th>Feature</th><th>Duration</th></tr></thead><tbody>`;
+            if (scenarios.length === 0) {
+                html += `<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No scenarios found for the selected filters.</td></tr>`;
+            } else {
+                for (const s of scenarios) {
+                    const dur = computeScenarioDuration(s);
+                    const status = scenarioStatus(s);
+                    const encodedScenario = JSON.stringify(s).replace(/"/g, '&quot;');
+                    html += `<tr class="${status}"><td class="nameCell" data-scenario="${encodedScenario}">${s.name}</td><td>${s.featureName}</td><td>${msToMinSec(dur)}</td></tr>`;
+                }
+            }
+            html += `</tbody></table>`;
+        } else {
+            const groupedFailures = groupFailuresByReason(scenarios);
+            html += `<h4>Grouped Failures</h4>`;
+            const reasons = Object.keys(groupedFailures);
+
+            if (reasons.length === 0 && failedScenariosCount === 0) {
+                 html += `<p style="color: var(--text-secondary);">No failures found for the selected filters. 🎉</p>`;
+            } else {
+                for (const reason of reasons) {
+                    html += `<div class="failure-group"><h5><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> ${reason} (${groupedFailures[reason].length} cases)</h5><ul>`;
+                    for (const s of groupedFailures[reason]) {
+                        const encodedScenario = JSON.stringify(s).replace(/"/g, '&quot;');
+                        html += `<li class="failed"><span class="nameCell" data-scenario="${encodedScenario}">${s.name}</span></li>`;
+                    }
+                    html += `</ul></div>`;
+                }
+            }
+        }
+        return html;
+    }
+
+
+    function renderDashboard(data) {
+        if (!data) {
+            hideLoading();
+            return;
+        }
+
+        const filteredScenarios = getFilteredScenarios(data);
+        currentScenarios = filteredScenarios;
+
+        const allScenariosForSummary = flattenFeatures(data);
+        const summary = getRunSummaryData(allScenariosForSummary, data); // Use ALL scenarios for summary counts/rates
+
+        renderStatusChart(allScenariosForSummary);
+        renderFeatureChart(allScenariosForSummary);
+        renderTrendChart();
+
+        let html = `
+            <h3>Test Run Details</h3>
+            <p><strong><i class="fas fa-calendar-alt" aria-hidden="true"></i> Date:</strong> ${summary.runStart.toLocaleString()}</p>
+            <p><strong><i class="fas fa-clock" aria-hidden="true"></i> Duration:</strong> ${msToMinSec(summary.runDuration)}</p>
+            <p><strong><i class="fas fa-check-circle" aria-hidden="true"></i> Summary:</strong>
+                Total Scenarios: ${summary.allScenariosCount}
+                <span style="color:${getCssVar('--pass-color')};">(${summary.scenarioPassRate}% Passed)</span><br>
+                Total Features: ${summary.features.length}
+                <span style="color:${getCssVar('--pass-color')};">(${summary.featurePassRate}% Passed)</span>
+            </p>
+            <div class="toggle-view">
+                View:
+                <button id="viewScenariosBtn" class="${currentView === 'scenarios' ? 'active' : ''}"><i class="fas fa-list" aria-hidden="true"></i> Scenarios</button>
+                <button id="viewFailuresBtn" class="${currentView === 'failures' ? 'active' : ''}"><i class="fas fa-bug" aria-hidden="true"></i> Failures (${summary.failedScenarios})</button>
+            </div>
+        `;
+
+        html += `<div class="matrix-toggle">
+            <i class="fas fa-th" aria-hidden="true"></i> View Matrix:
+            <button id="matrixScenariosBtn" class="matrix-toggle-btn ${currentMatrixMode === 'scenarios' ? 'active' : ''}">Scenarios</button>
+            <button id="matrixFeaturesBtn" class="matrix-toggle-btn ${currentMatrixMode === 'features' ? 'active' : ''}">Features</button>
+        </div>
+        <figure id="matrix" class="matrix-table-container"></figure>`;
+
+        html += renderScenarioOrFailureList(filteredScenarios, summary.failedScenarios);
+
+        detailsContainer.innerHTML = html;
+        hideLoading();
+
+        // Attach event listeners
+        document.getElementById('viewScenariosBtn').onclick = () => { currentView = 'scenarios'; renderDashboard(data); };
+        document.getElementById('viewFailuresBtn').onclick = () => { currentView = 'failures'; renderDashboard(data); };
+        document.getElementById('matrixScenariosBtn').onclick = () => { currentMatrixMode = 'scenarios'; renderMatrix(); };
+        document.getElementById('matrixFeaturesBtn').onclick = () => { currentMatrixMode = 'features'; renderMatrix(); };
+
+        document.querySelectorAll('#details .nameCell').forEach((cell) => {
+            cell.onclick = () => {
+                const scenario = JSON.parse(cell.dataset.scenario.replace(/&quot;/g, '"'));
+                const status = scenarioStatus(scenario);
+                const scenarioId = btoa(unescape(encodeURIComponent(scenario.name + scenario.start_timestamp))).replace(/=/g, '');
+                const existingDetails = document.getElementById(`details-${scenarioId}`);
+
+                // Remove all other expanded details rows
+                document.querySelectorAll('.details-row').forEach(row => {
+                    if (row.id !== `details-${scenarioId}`) {
+                        row.remove();
+                    }
+                });
+
+                if (existingDetails) {
+                    existingDetails.remove();
+                } else {
+                    const parentRow = cell.closest('tr');
+                    const parentLi = cell.closest('li');
+                    const detailsContent = renderScenarioDetails(scenario);
+
+                    if (parentRow) {
+                        const newElement = document.createElement('tr');
+                        newElement.id = `details-${scenarioId}`;
+                        newElement.classList.add('details-row', status);
+                        newElement.innerHTML = `<td colspan="3">` + detailsContent + `</td>`;
+                        parentRow.after(newElement);
+                    } else if (parentLi) {
+                         const detailsDiv = document.createElement('div');
+                         detailsDiv.classList.add('details-row', status);
+                         detailsDiv.id = `details-${scenarioId}`;
+                         detailsDiv.innerHTML = detailsContent;
+                         parentLi.after(detailsDiv);
+                    }
+                }
+            };
+        });
+
+        renderMatrix();
+    }
+
+    function renderDataTable(step) {
+        if (!step.arguments || !step.arguments.length) {
+            return '';
+        }
+
+        const dataTable = step.arguments.find(arg => arg.rows);
+        if (!dataTable || !dataTable.rows || dataTable.rows.length === 0) {
+            return '';
+        }
+
+        let html = '<table class="step-table"><tbody>';
+        for (const row of dataTable.rows) {
+            html += '<tr>';
+            for (const cell of row.cells) {
+                 html += `<td>${cell}</td>`;
+            }
+            html += '</tr>';
+        }
+        html += '</tbody></table>';
+        return html;
+    }
+
+    function renderScenarioDetails(scenario) {
+        let html = `<h5>Scenario: ${scenario.name}</h5><ul class="step-list">`;
+
+        for (const step of (scenario.steps || [])) {
+            const status = step.result?.status || 'skipped';
+            const statusText = status.charAt(0).toUpperCase() + status.slice(1);
+
+            let color;
+            if (status === 'passed') {
+                color = getCssVar('--pass-color');
+            } else if (status === 'failed') {
+                color = getCssVar('--fail-color');
+            } else {
+                color = getCssVar('--text-secondary');
+            }
+
+            html += '<li>';
+            html += `<span class="step-status" style="color:${color};">${statusText}:</span>`;
+            html += `${step.keyword} ${step.name}`;
+
+            if (step.result?.error_message) {
+                 html += `<pre style="color:${getCssVar('--fail-color')};">${step.result.error_message}</pre>`;
+            }
+
+            html += renderDataTable(step);
+            html += '</li>';
+        }
+        html += '</ul>';
+        return html;
+    }
+
+    function renderStatusChart(allScenarios) {
+        const passedScenarios = allScenarios.filter(s => scenarioStatus(s) === 'passed').length;
+        const failedScenarios = allScenarios.length - passedScenarios;
+
+        if (statusChart) statusChart.destroy();
+        statusChart = new Chart(document.getElementById('statusChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Passed', 'Failed'],
+                datasets: [{
+                    data: [passedScenarios, failedScenarios],
+                    backgroundColor: [getCssVar('--pass-color'), getCssVar('--fail-color')],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: getCssVar('--text-primary')
+                        }
+                    },
+                    datalabels: {
+                        formatter: (value, context) => {
+                            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            if (total === 0) return '';
+                            const percentage = Math.round((value / total) * 100);
+                            return percentage > 0 ? `${percentage}%` : '';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        anchor: 'center',
+                        align: 'center'
+                    }
+                }
+            }
+        });
+    }
+
+    function renderFeatureChart(scenarios) {
+        const features = {};
+        const UNKNOWN_FEATURE = 'unknown';
+
+        for (const s of scenarios) {
+            const fid = s.featureId || UNKNOWN_FEATURE;
+            if (!features[fid]) {
+                features[fid] = { passed: 0, failed: 0, name: s.featureName || fid };
+            }
+            if (scenarioStatus(s) === 'passed') {
+                features[fid].passed++;
+            } else {
+                features[fid].failed++;
+            }
+        }
+        const labels = Object.values(features).map(f => f.name);
+        const passed = Object.values(features).map(f => f.passed);
+        const failed = Object.values(features).map(f => f.failed);
+
+        if (featureChart) featureChart.destroy();
+        featureChart = new Chart(document.getElementById('featureChart').getContext('2d'), {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Passed', data: passed, backgroundColor: getCssVar('--pass-color') }, { label: 'Failed', data: failed, backgroundColor: getCssVar('--fail-color') }] },
+            options: {
+                indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', labels: { color: getCssVar('--text-primary') } } },
+                scales: {
+                    x: { stacked: true, ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } },
+                    y: { stacked: true, ticks: { color: getCssVar('--text-secondary') }, grid: { color: 'rgba(0,0,0,0)' } }
+                }
+            }
+        });
+    }
+
+    async function renderTrendChart() {
+        const limited = allRunEntries.slice(0, 30).filter(entry => entry.data).reverse();
+        const labels = limited.map(e => e.name.replace('.json', ''));
+        const passRates = [];
+
+        for (const entry of limited) {
+            const sc = flattenFeatures(entry.data);
+            if (!sc || sc.length === 0) {
+                passRates.push(null);
+                continue;
+            }
+            const passed = sc.filter(s => scenarioStatus(s) === 'passed').length;
+            passRates.push(Math.round(passed / sc.length * 100));
+        }
+
+        if (trendChart) trendChart.destroy();
+        trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+            type: 'line', data: { labels, datasets: [{ label: 'Pass %', data: passRates, borderColor: getCssVar('--info-color'), fill: false, tension: 0.2 }] },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    y: { min: 0, max: 100, ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } },
+                    x: { ticks: { color: getCssVar('--text-secondary') }, grid: { color: getCssVar('--border-color') } }
+                },
+                plugins: { legend: { labels: { color: getCssVar('--text-primary') } } }
+            }
+        });
+    }
+
+    /**
+     * Calculates the matrix cell status for a given item (scenario or feature) across a single run.
+     * Reduces the cognitive complexity of the renderMatrix function.
+     * @param {string} item - The name of the scenario or feature.
+     * @param {Array<Object>} runScenarios - All scenarios for a single run.
+     * @param {string} mode - 'scenarios' or 'features'.
+     * @returns {string} 'green', 'red', or 'grey'.
+     */
+    function calculateMatrixStatus(item, runScenarios, mode) {
+        let matches = [];
+        if (mode === 'scenarios') {
+            matches = runScenarios.filter(s => s.name === item);
+        } else { // 'features'
+            matches = runScenarios.filter(s => s.featureName === item);
+        }
+
+        if (matches.length === 0) {
+            return 'grey';
+        }
+
+        // If any matching scenario failed, the overall status is 'red'.
+        const failed = matches.some(s => scenarioStatus(s) === 'failed');
+
+        // Simple conditional assignment (not a nested ternary)
+        if (failed) {
+            return 'red';
+        }
+        return 'green';
+    }
+
+    async function renderMatrix() {
+        const matrixEl = document.getElementById('matrix');
+        if (!matrixEl) return;
+
+        const limited = allRunEntries.slice(0, 5).filter(entry => entry.data);
+
+        let items = [];
+        if (currentMatrixMode === 'scenarios') {
+            // Use currentScenarios (filtered scenarios) to determine the rows
+            items = [...new Set(currentScenarios.map(s => s.name))];
+        } else {
+            items = [...new Set(currentScenarios.map(s => s.featureName))].filter(n => n);
+        }
+
+        // --- Build Header ---
+        let html = `<table><caption>Test Matrix</caption><thead><tr><th>${currentMatrixMode === 'scenarios' ? 'Scenario' : 'Feature'}</th>`;
+        html += limited.map(e => `<th>${e.name.replace('.json', '')}</th>`).join('');
+        html += '</tr></thead><tbody>';
+
+        // --- Build Body ---
+        for (const item of items) {
+            html += `<tr><td>${item}</td>`;
+
+            for (const runEntry of limited) {
+                const runScenarios = flattenFeatures(runEntry.data);
+                const status = calculateMatrixStatus(item, runScenarios, currentMatrixMode);
+
+                // Concatenation used instead of nested template literal
+                html += '<td><span class="block ' + status + '"></span></td>';
+            }
+            html += `</tr>`;
+        }
+
+        html += `</tbody></table>`;
+        matrixEl.innerHTML = html;
+
+        document.querySelectorAll('.matrix-toggle-btn').forEach(btn => btn.classList.remove('active'));
+        // Use a simple conditional for the button ID string generation
+        const btnId = `matrix${currentMatrixMode.charAt(0).toUpperCase() + currentMatrixMode.slice(1)}Btn`;
+        document.getElementById(btnId).classList.add('active');
+    }
+
+    loadRunListing();
 </script>
-<div class="row">
-<div class="col-lg-6 col-md-12 category-container">
-<div class="card">
-<div class="card-header"><p>Tags</p></div>
-<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
-<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
-<tr>
-<td>@addObjectsAPI</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@getObjectAPI</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@createUser</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@api</td>
-<td>6</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@ui</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@ui1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>@data</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-</div>
-</div>
-<script>
-var statusGroup = {
-parentCount: 5,
-passParent: 4,
-failParent: 0,
-warningParent: 0,
-skipParent: 0,
-childCount: 5,
-passChild: 8,
-failChild: 0,
-warningChild: 0,
-skipChild: 0,
-infoChild: 0,
-grandChildCount: 5,
-passGrandChild: 24,
-failGrandChild: 0,
-warningGrandChild: 0,
-skipGrandChild: 0,
-infoGrandChild: 0,
-eventsCount: 5,
-};
-</script>        </div>
-      </div>
-    </div>
-  </div>
-<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@c05cd28cde1617b9d0c05a831daff6cb97fd9fd5/spark/js/spark-script.js"></script>
-<script type="text/javascript">
-            
-        console.log("Extent Report Loaded");
-      
-        </script></body>
+</body>
 </html>
