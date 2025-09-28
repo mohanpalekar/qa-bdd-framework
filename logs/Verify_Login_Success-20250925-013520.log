@@ -1,0 +1,16 @@
+2025-09-25 01:35:20 [INFO] 🚀 Starting scenario: Verify Login Success 
+2025-09-25 01:35:31 [INFO] 🔍 Resolving value token: Admin 
+2025-09-25 01:35:33 [INFO] 🔍 Resolving value token: admin123 
+2025-09-25 01:35:34 [INFO] 🔍 Resolving value token: enter 
+2025-09-25 01:35:35 [INFO] 🔍 Resolving value token: 2 
+2025-09-25 01:35:37 [INFO] 🔍 Resolving value token: Dashboard 
+2025-09-25 01:35:39 [INFO] 🔍 Resolving value token: Employee Distribution by Location 
+2025-09-25 01:35:41 [INFO] 🔍 Resolving value token: 2 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: tab 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: tab 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: tab 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: tab 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: enter 
+2025-09-25 01:35:44 [INFO] 🔍 Resolving value token: Login 
+2025-09-25 01:35:46 [INFO] 🌙 Browser closed after scenario: Verify Login Success 
+2025-09-25 01:35:46 [INFO] ✅ Finished scenario: Verify Login Success 

@@ -1,0 +1,35 @@
+2025-09-25 01:35:20 [INFO] 🚀 Starting scenario: Get multiple objects by IDs 
+2025-09-25 01:35:20 [INFO] Loading API spec: get_objects_by_ids.yaml 
+2025-09-25 01:35:20 [INFO] 🔍 Resolving value token: 3 
+2025-09-25 01:35:20 [INFO] Override -> key: query:id | value: 3 
+2025-09-25 01:35:20 [INFO] 🔍 Resolving value token: 5 
+2025-09-25 01:35:20 [INFO] Override -> key: query:id | value: 5 
+2025-09-25 01:35:20 [INFO] 🔍 Resolving value token: ${myId=number:2} 
+2025-09-25 01:35:20 [INFO] ✨ Generated and saved number:2 for key myId -> 22 
+2025-09-25 01:35:20 [INFO] Override -> key: query:id | value: 22 
+2025-09-25 01:35:20 [INFO] 🔍 Resolving value token: 10 
+2025-09-25 01:35:20 [INFO] ⏳ Waiting for 10 seconds... 
+2025-09-25 01:35:30 [INFO] ✅ Waited for 10 seconds 
+2025-09-25 01:35:30 [INFO] Calling API GET /objects 
+2025-09-25 01:35:30 [INFO] Path params: {} 
+2025-09-25 01:35:30 [INFO] Query params: {id=[3, 5, 22]} 
+2025-09-25 01:35:31 [INFO] Response status: 200 
+2025-09-25 01:35:31 [INFO] Response body: [
+    {
+        "id": "3",
+        "name": "Apple iPhone 12 Pro Max",
+        "data": {
+            "color": "Cloudy White",
+            "capacity GB": 512
+        }
+    },
+    {
+        "id": "5",
+        "name": "Samsung Galaxy Z Fold2",
+        "data": {
+            "price": 689.99,
+            "color": "Brown"
+        }
+    }
+] 
+2025-09-25 01:35:31 [INFO] ✅ Finished scenario: Get multiple objects by IDs 

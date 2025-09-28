@@ -1,0 +1,93 @@
+2025-09-25 01:35:20 [INFO] 🚀 Starting scenario: Verify Login Failure 
+2025-09-25 01:35:20 [INFO] Launching browser: chrome 
+2025-09-25 01:35:20 [INFO] Launching browser: chrome 
+2025-09-25 01:35:20 [INFO] Launching browser: chrome 
+2025-09-25 01:35:20 [INFO] Launching browser: chrome 
+2025-09-25 01:35:23 [INFO] Browser launched and maximized successfully. 
+2025-09-25 01:35:23 [INFO] Browser launched and maximized successfully. 
+2025-09-25 01:35:23 [INFO] Navigating to URL: https://opensource-demo.orangehrmlive.com/ 
+2025-09-25 01:35:24 [INFO] Navigating to URL: https://opensource-demo.orangehrmlive.com/ 
+2025-09-25 01:35:25 [INFO] 🔍 Resolving value token: ${userEmail=email} 
+2025-09-25 01:35:25 [INFO] ✨ Generated and saved email for key userEmail -> myrtle.marvin@yahoo.com 
+2025-09-25 01:35:25 [INFO] UI Action - Operation: type, LocatorKey: login.username, Value: myrtle.marvin@yahoo.com 
+2025-09-25 01:35:25 [INFO] 🔍 Resolving locator: login.username → name:username 
+2025-09-25 01:35:31 [INFO] UI Action - Operation: type, LocatorKey: login.username, Value: Admin 
+2025-09-25 01:35:31 [INFO] 🔍 Resolving locator: login.username → name:username 
+2025-09-25 01:35:33 [INFO] ✅ Found usable element for key: login.username on attempt 1 
+2025-09-25 01:35:33 [INFO] ✅ Completed operation: type on login.username 
+2025-09-25 01:35:33 [INFO] UI Action - Operation: type, LocatorKey: login.password, Value: admin123 
+2025-09-25 01:35:33 [INFO] 🔍 Resolving locator: login.password → relative:tag:input|below=login.username 
+2025-09-25 01:35:33 [INFO] ✅ Found usable element for key: login.password on attempt 1 
+2025-09-25 01:35:34 [INFO] ✅ Completed operation: type on login.password 
+2025-09-25 01:35:34 [INFO] UI Action - Operation: keyboard, Value: enter 
+2025-09-25 01:35:35 [INFO] ✅ Sent keyboard action: enter 
+2025-09-25 01:35:35 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:35 [INFO] UI Action - Operation: wait, Value: 2 
+2025-09-25 01:35:35 [INFO] ⏳ Waiting for 2 seconds... 
+2025-09-25 01:35:36 [INFO] ✅ Found usable element for key: login.username on attempt 1 
+2025-09-25 01:35:36 [INFO] ✅ Completed operation: type on login.username 
+2025-09-25 01:35:36 [INFO] 🔍 Resolving value token: ${number:5} 
+2025-09-25 01:35:36 [INFO] ✨ Generated number:5 -> 40229 
+2025-09-25 01:35:36 [INFO] UI Action - Operation: type, LocatorKey: login.password, Value: 40229 
+2025-09-25 01:35:36 [INFO] 🔍 Resolving locator: login.password → relative:tag:input|below=login.username 
+2025-09-25 01:35:37 [INFO] ✅ Waited for 2 seconds 
+2025-09-25 01:35:37 [INFO] ✅ Completed operation: wait 
+2025-09-25 01:35:37 [INFO] UI Action - Operation: verify text, LocatorKey: home.dashboard, Value: Dashboard 
+2025-09-25 01:35:37 [INFO] 🔍 Resolving locator: home.dashboard → xpath://h6[text()='Dashboard'] 
+2025-09-25 01:35:37 [INFO] ✅ Found usable element for key: login.password on attempt 1 
+2025-09-25 01:35:39 [INFO] ✅ Found usable element for key: home.dashboard on attempt 1 
+2025-09-25 01:35:39 [INFO] ✅ Text verified for home.dashboard: Dashboard 
+2025-09-25 01:35:39 [INFO] ✅ Completed operation: verify text on home.dashboard 
+2025-09-25 01:35:39 [INFO] UI Action - Operation: verify text, LocatorKey: home.employee.distribution.report, Value: Employee Distribution by Location 
+2025-09-25 01:35:39 [INFO] 🔍 Resolving locator: home.employee.distribution.report → xpath://p[text()='Employee Distribution by Location'] 
+2025-09-25 01:35:39 [INFO] ✅ Completed operation: type on login.password 
+2025-09-25 01:35:39 [INFO] 🔍 Resolving value token: enter 
+2025-09-25 01:35:39 [INFO] UI Action - Operation: keyboard, Value: enter 
+2025-09-25 01:35:40 [INFO] ✅ Found usable element for key: home.employee.distribution.report on attempt 1 
+2025-09-25 01:35:40 [INFO] ✅ Text verified for home.employee.distribution.report: Employee Distribution by Location 
+2025-09-25 01:35:40 [INFO] ✅ Completed operation: verify text on home.employee.distribution.report 
+2025-09-25 01:35:40 [INFO] UI Action - Operation: click, LocatorKey: home.user.menu 
+2025-09-25 01:35:40 [INFO] 🔍 Resolving locator: home.user.menu → xpath://p[@class='oxd-userdropdown-name'] 
+2025-09-25 01:35:40 [INFO] ✅ Found usable element for key: home.user.menu on attempt 1 
+2025-09-25 01:35:41 [INFO] ✅ Sent keyboard action: enter 
+2025-09-25 01:35:41 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:41 [INFO] 🔍 Resolving value token: 2 
+2025-09-25 01:35:41 [INFO] UI Action - Operation: wait, Value: 2 
+2025-09-25 01:35:41 [INFO] ⏳ Waiting for 2 seconds... 
+2025-09-25 01:35:41 [INFO] ✅ Completed operation: click on home.user.menu 
+2025-09-25 01:35:41 [INFO] UI Action - Operation: wait, Value: 2 
+2025-09-25 01:35:41 [INFO] ⏳ Waiting for 2 seconds... 
+2025-09-25 01:35:43 [INFO] ✅ Waited for 2 seconds 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: wait 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving value token: Invalid credentials 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: verify text, LocatorKey: login.failed, Value: Invalid credentials 
+2025-09-25 01:35:43 [INFO] 🔍 Resolving locator: login.failed → xpath://p[text()='Invalid credentials'] 
+2025-09-25 01:35:43 [INFO] ✅ Waited for 2 seconds 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: wait 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: keyboard, Value: tab 
+2025-09-25 01:35:43 [INFO] ✅ Found usable element for key: login.failed on attempt 1 
+2025-09-25 01:35:43 [INFO] ✅ Sent keyboard action: tab 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: keyboard, Value: tab 
+2025-09-25 01:35:43 [INFO] ✅ Sent keyboard action: tab 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:43 [INFO] ✅ Text verified for login.failed: Invalid credentials 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: keyboard, Value: tab 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: verify text on login.failed 
+2025-09-25 01:35:43 [INFO] ✅ Sent keyboard action: tab 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: keyboard, Value: tab 
+2025-09-25 01:35:43 [INFO] ✅ Sent keyboard action: tab 
+2025-09-25 01:35:43 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:43 [INFO] UI Action - Operation: keyboard, Value: enter 
+2025-09-25 01:35:44 [INFO] Browser closed successfully. 
+2025-09-25 01:35:44 [INFO] 🌙 Browser closed after scenario: Verify Login Failure 
+2025-09-25 01:35:44 [INFO] ✅ Finished scenario: Verify Login Failure 
+2025-09-25 01:35:44 [INFO] ✅ Sent keyboard action: enter 
+2025-09-25 01:35:44 [INFO] ✅ Completed operation: keyboard 
+2025-09-25 01:35:44 [INFO] UI Action - Operation: verify text, LocatorKey: login.page.text, Value: Login 
+2025-09-25 01:35:44 [INFO] 🔍 Resolving locator: login.page.text → xpath://h5[text()='Login'] 
+2025-09-25 01:35:45 [INFO] ✅ Found usable element for key: login.page.text on attempt 1 
+2025-09-25 01:35:45 [INFO] ✅ Text verified for login.page.text: Login 
+2025-09-25 01:35:45 [INFO] ✅ Completed operation: verify text on login.page.text 
+2025-09-25 01:35:46 [INFO] Browser closed successfully. 
